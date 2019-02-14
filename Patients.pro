@@ -30,7 +30,9 @@ SOURCES += \
     model/informaticien.cpp \
     model/patient.cpp \
     model/personnel.cpp \
-    controler/controler.cpp
+    controler/controler.cpp \
+    model/typemedecin.cpp \
+    model/utils.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +41,8 @@ HEADERS += \
     model/patient.h \
     model/personnel.h \
     model/typemedecin.h \
-    controler/controler.h
+    controler/controler.h \
+    model/utils.h
 
 FORMS += \
         view/mainwindow.ui

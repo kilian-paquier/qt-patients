@@ -69,27 +69,27 @@ void Patient::addIdentifiantRessources(int identifiant)
 	(*this).identifiantsRessources.push_back(identifiant);
 }
 
-void Patient::setNom(string nom)
+void Patient::setNom(string &nom)
 {
 	(*this).nom = nom;
 }
 
-void Patient::setPrenom(string prenom)
+void Patient::setPrenom(string &prenom)
 {
 	(*this).prenom = prenom;
 }
 
-void Patient::setAdresse(string adresse)
+void Patient::setAdresse(string &adresse)
 {
 	(*this).adresse = adresse;
 }
 
-void Patient::setVille(string ville)
+void Patient::setVille(string &ville)
 {
 	(*this).ville = ville;
 }
 
-void Patient::setCommentaires(string commentaires)
+void Patient::setCommentaires(string &commentaires)
 {
 	(*this).commentairesMaladie = commentaires;
 }
@@ -129,4 +129,12 @@ void Patient::transform()
 string Patient::toString()
 {
 	return string();
+}
+
+string & Patient::getDate() {
+    return date;
+}
+
+void Patient::setDate(string &date) {
+    this->date = date;
 }

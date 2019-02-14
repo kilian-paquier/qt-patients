@@ -1,9 +1,7 @@
 #ifndef PERSONNEL_H
 #define PERSONNEL_H
 
-#include <string>
 #include "typemedecin.h"
-using namespace std;
 
 class Personnel
 {
@@ -18,7 +16,7 @@ public:
 
     string & getNom();
     string & getPrenom();
-    string & getType();
+    TypeMedecin::personnel & getType();
     void setNom(string nom);
     void setPrenom(string prenom);
     void setType(TypeMedecin::personnel type);
