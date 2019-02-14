@@ -33,7 +33,8 @@ SOURCES += \
     controler/controler.cpp \
     model/typemedecin.cpp \
     model/utils.cpp \
-    model/c_init_bd.cpp
+    model/c_init_bd.cpp \
+    model/centre.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     model/typemedecin.h \
     controler/controler.h \
     model/utils.h \
-    model/c_init_bd.h
+    model/c_init_bd.h \
+    model/centre.h
 
 FORMS += \
         view/mainwindow.ui

@@ -14,8 +14,8 @@ public:
 
     string & getPassword();
     string & getLogin();
-    void setPassword(string password);
-    void setLogin(string login);
+    void setPassword(string & password);
+    void setLogin(string & login);
 };
 
 #endif // INFORMATICIEN_H

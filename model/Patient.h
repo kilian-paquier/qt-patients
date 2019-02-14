@@ -10,6 +10,7 @@ using namespace std;
 class Patient
 {
 private:
+    int identifiant;
 	string nom;
 	string prenom;
 	string adresse;
@@ -33,6 +34,7 @@ public:
 	string & getVille();
 	string & getCommentaires();
     QDate & getDate();
+    int & getIdentifiant();
 	
 	int & getCodePostal();
 	int & getNumeroTelephone();
@@ -40,8 +42,8 @@ public:
 	int & getPriorite();
 
 	vector<int> & getIdentifiantsRessources();
-	void setIdentifiantsRessources(vector<int> identifiants);
-	void addIdentifiantRessources(int identifiant);
+    void setIdentifiantsRessources(vector<int> &identifiants);
+    void addIdentifiantRessources(int &identifiant);
 
     void setNom(string & nom);
     void setPrenom(string & prenom);
@@ -49,11 +51,12 @@ public:
     void setVille(string & ville);
     void setCommentaires(string & commentaires);
     void setDate(QDate & date);
+    void setIdentifiant(int & identifiant);
 
-	void setCodePostal(int codePostal);
-	void setNumeroTelephone(int numeroTelephone);
-	void setDureeConsultation(int dureeConsultation);
-	void setPriorite(int priorite);
+    void setCodePostal(int & codePostal);
+    void setNumeroTelephone(int & numeroTelephone);
+    void setDureeConsultation(int & dureeConsultation);
+    void setPriorite(int & priorite);
 
 	bool operator<(Patient & patient);
 	void transform();

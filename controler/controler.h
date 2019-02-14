@@ -7,11 +7,13 @@
 #include "model/Patient.h"
 #include "model/personnel.h"
 #include "model/informaticien.h"
+#include "model/centre.h"
 
 class Controler
 {
 private:
     MainWindow window;
+    Centre centre;
 public:
     Controler();
     ~Controler();

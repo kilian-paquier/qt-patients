@@ -36,9 +36,9 @@ bool C_INIT_BD::Creation_BD()
         }
 
         b_test=query.exec("create table TCompte "
-                          "(Id integer primary key auto_increment, "
+                          "(Id integer auto_increment primary key, "
                           "IdRessource integer, "
-                          "Login varchar(50), "
+                          "Login varchar(50) unique, "
                           "MdP varchar(50))");
         if(!b_test)
         {
@@ -48,7 +48,7 @@ bool C_INIT_BD::Creation_BD()
         }
 
         b_test=query.exec("create table TConsult "
-                          "(Id integer primary key auto_increment, "
+                          "(Id integer auto_increment primary key, "
                           "IdPatient integer, "
                           "IdRessource integer)");
         if(!b_test)
@@ -59,14 +59,14 @@ bool C_INIT_BD::Creation_BD()
         }
 
         b_test=query.exec("create table TPatient "
-                          "(Id integer primary key auto_increment, "
+                          "(Id integer auto_increment primary key, "
                           "Nom varchar(50), "
                           "Prenom varchar(50), "
                           "Adresse varchar(50), "
                           "Ville varchar(50), "
                           "CP integer, "
                           "Commentaire varchar(50), "
-                          "Tel integer, "
+                          "Tel integer unique, "
                           "DateConsultation date, "
                           "DureeConsultation integer, "
                           "Priorite integer)");
@@ -78,7 +78,7 @@ bool C_INIT_BD::Creation_BD()
         }
 
         b_test=query.exec("create table TRessource "
-                          "(Id integer primary key auto_increment, "
+                          "(Id integer auto_increment primary key, "
                           "Nom varchar(50), "
                           "Prenom varchar(50), "
                           "IdType integer)");
@@ -90,7 +90,7 @@ bool C_INIT_BD::Creation_BD()
         }
 
         b_test=query.exec("create table TType "
-                          "(Id integer primary key auto_increment, "
+                          "(Id integer auto_increment primary key, "
                           "Label varchar(50))");
         if(!b_test)
         {

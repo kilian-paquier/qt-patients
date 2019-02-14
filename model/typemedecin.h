@@ -1,6 +1,9 @@
 #ifndef TYPEMEDECIN_H
 #define TYPEMEDECIN_H
 
+#include <string>
+using namespace std;
+
 namespace TypeMedecin {
     typedef enum {
         Medecin_A,
@@ -8,8 +11,11 @@ namespace TypeMedecin {
         Radiologue,
         Infirmiere,
         Kine,
-        Psychologue
+        Psychologue,
+        Informaticien
     } personnel;
+string & toString(TypeMedecin::personnel);
+TypeMedecin::personnel & parseFromString(string & typeMedecin);
 }
 
 #endif // TYPEMEDECIN_H

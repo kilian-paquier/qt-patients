@@ -20,12 +20,12 @@ string &Informaticien::getLogin()
     return login;
 }
 
-void Informaticien::setPassword(string password)
+void Informaticien::setPassword(string &password)
 {
     this->password = password;
 }
 
-void Informaticien::setLogin(string login)
+void Informaticien::setLogin(string &login)
 {
     this->login = login;
 }

@@ -33,6 +33,9 @@ void Controler::createPatient(string &nom, string &prenom, string &adresse, stri
 
     patient.setCommentaires(commentaires);
     patient.setNumeroTelephone(numeroTelephone);
+
+    Utils::writePatientInBDD(patient);
+    centre.addPatient(patient);
 }
 
 void Controler::createPersonnel(int &identifiant, string &nom, string &prenom, TypeMedecin::personnel &type)
@@ -42,6 +45,8 @@ void Controler::createPersonnel(int &identifiant, string &nom, string &prenom, T
     personnel.setNom(nom);
     personnel.setPrenom(prenom);
     personnel.setType(type);
+    Utils::writePersonnelInBDD(personnel);
+    centre.addPersonnel(personnel);
 }
 
 void Controler::createInformaticien(int &identifiant, string &nom, string &prenom, TypeMedecin::personnel &type, string &login, string &password)
@@ -53,6 +58,7 @@ void Controler::createInformaticien(int &identifiant, string &nom, string &preno
     personnel.setType(type);
     personnel.setLogin(login);
     personnel.setPassword(password);
+
 }
 
 

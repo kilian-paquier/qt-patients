@@ -13,6 +13,7 @@
 #include <QVariant>
 #include <QtDebug>
 #include <QSqlError>
+#include "model/informaticien.h"
 using namespace std;
 
 class Utils
@@ -20,9 +21,16 @@ class Utils
 private:
     Utils();
     ~Utils();
-
+public:
     static bool writePatientInBDD(Patient & patient);
     static bool writePersonnelInBDD(Personnel & personnel);
+    static bool writeInformaticienInBDD(Informaticien & informaticien);
+    static bool updatePatientInBDD(Patient & patient);
+    static bool updatePersonnelInBDD(Personnel & personnel);
+    static bool updateInformaticienInBDD(Informaticien & informaticien);
+    static bool deletePatientFromBDD(Patient & patient);
+    static bool deletePersonnelFromBDD(Personnel & personnel);
+    static bool deleteInformaticienFromBDD(Informaticien & informaticien);
 };
 
 #endif // UTILS_H

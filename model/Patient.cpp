@@ -59,12 +59,12 @@ vector<int> & Patient::getIdentifiantsRessources()
 	return identifiantsRessources;
 }
 
-void Patient::setIdentifiantsRessources(vector<int> identifiants)
+void Patient::setIdentifiantsRessources(vector<int> &identifiants)
 {
 	(*this).identifiantsRessources = identifiants;
 }
 
-void Patient::addIdentifiantRessources(int identifiant)
+void Patient::addIdentifiantRessources(int &identifiant)
 {
 	(*this).identifiantsRessources.push_back(identifiant);
 }
@@ -94,22 +94,22 @@ void Patient::setCommentaires(string &commentaires)
 	(*this).commentairesMaladie = commentaires;
 }
 
-void Patient::setCodePostal(int codePostal)
+void Patient::setCodePostal(int &codePostal)
 {
 	(*this).codePostal = codePostal;
 }
 
-void Patient::setNumeroTelephone(int numeroTelephone)
+void Patient::setNumeroTelephone(int &numeroTelephone)
 {
 	(*this).numeroTelephone = numeroTelephone;
 }
 
-void Patient::setDureeConsultation(int dureeConsultation)
+void Patient::setDureeConsultation(int &dureeConsultation)
 {
 	(*this).dureeConsultation = dureeConsultation;
 }
 
-void Patient::setPriorite(int priorite)
+void Patient::setPriorite(int &priorite)
 {
 	(*this).priorite = priorite;
 }
@@ -135,6 +135,16 @@ QDate & Patient::getDate() {
     return date;
 }
 
+int &Patient::getIdentifiant()
+{
+    return identifiant;
+}
+
 void Patient::setDate(QDate &date) {
     this->date = date;
+}
+
+void Patient::setIdentifiant(int &identifiant)
+{
+    this->identifiant = identifiant;
 }
