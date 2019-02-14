@@ -1,8 +1,6 @@
 #ifndef TYPEMEDECIN_H
 #define TYPEMEDECIN_H
 
-#include "model/utils.h"
-
 namespace TypeMedecin {
     typedef enum {
         Medecin_A,

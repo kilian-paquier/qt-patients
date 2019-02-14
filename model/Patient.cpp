@@ -131,10 +131,10 @@ string Patient::toString()
 	return string();
 }
 
-string & Patient::getDate() {
+QDate & Patient::getDate() {
     return date;
 }
 
-void Patient::setDate(string &date) {
+void Patient::setDate(QDate &date) {
     this->date = date;
 }

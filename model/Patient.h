@@ -1,5 +1,11 @@
 #pragma once
-#include "model/utils.h"
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+#include <QDate>
 
 class Patient
 {
@@ -9,7 +15,7 @@ private:
 	string adresse;
 	string ville;
 	string commentairesMaladie;
-    string date;
+    QDate date;
 
 	int codePostal;
 	int numeroTelephone;
@@ -26,7 +32,7 @@ public:
 	string & getAdresse();
 	string & getVille();
 	string & getCommentaires();
-    string & getDate();
+    QDate & getDate();
 	
 	int & getCodePostal();
 	int & getNumeroTelephone();
@@ -42,7 +48,7 @@ public:
     void setAdresse(string & adresse);
     void setVille(string & ville);
     void setCommentaires(string & commentaires);
-    void setDate(string & date);
+    void setDate(QDate & date);
 
 	void setCodePostal(int codePostal);
 	void setNumeroTelephone(int numeroTelephone);

@@ -5,6 +5,11 @@ Informaticien::Informaticien()
 
 }
 
+Informaticien::~Informaticien()
+{
+
+}
+
 string &Informaticien::getPassword()
 {
     return password;
