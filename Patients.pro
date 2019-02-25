@@ -25,8 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-    view/mainwindow.cpp \
     model/informaticien.cpp \
     model/patient.cpp \
     model/personnel.cpp \
@@ -38,7 +36,6 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-    view/mainwindow.h \
     model/informaticien.h \
     model/patient.h \
     model/personnel.h \
@@ -48,8 +45,7 @@ HEADERS += \
     model/c_init_bd.h \
     model/centre.h
 
-FORMS += \
-        view/mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
