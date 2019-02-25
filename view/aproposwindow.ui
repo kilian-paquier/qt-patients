@@ -48,7 +48,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../polytech.qrc">:/Pictures/polytech tours.gif</pixmap>
+       <pixmap resource="../polytech.qrc">:/polytech tours.gif</pixmap>
       </property>
      </widget>
     </item>

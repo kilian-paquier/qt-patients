@@ -1,5 +1,2 @@
-<RCC>
-    <qresource prefix="/">
-        <file>../../../Pictures/polytech tours.gif</file>
-    </qresource>
-</RCC>
+<!DOCTYPE RCC>
+<RCC version="1.0"/>
