@@ -26,23 +26,34 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-    view/mainwindow.cpp \
     model/informaticien.cpp \
     model/patient.cpp \
     model/personnel.cpp \
-    controler/controler.cpp
+    controler/controler.cpp \
+    view/mainwindow.cpp \
+    view/loginwindow.cpp \
+    view/aproposwindow.cpp \
+    view/personnelwindow.cpp \
+    view/patientwindow.cpp
 
 HEADERS += \
-        mainwindow.h \
-    view/mainwindow.h \
     model/informaticien.h \
     model/patient.h \
     model/personnel.h \
     model/typemedecin.h \
-    controler/controler.h
+    controler/controler.h \
+    view/mainwindow.h \
+    view/patientwindow.h \
+    view/personnelwindow.h \
+    view/aproposwindow.h \
+    view/loginwindow.h
 
 FORMS += \
-        view/mainwindow.ui
+    view/mainwindow.ui \
+    view/aproposwindow.ui \
+    view/loginwindow.ui \
+    view/personnelwindow.ui \
+    view/patientwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -54,3 +65,6 @@ SUBDIRS += \
 
 DISTFILES += \
     README.md
+
+RESOURCES += \
+    polytech.qrc

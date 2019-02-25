@@ -4,3 +4,8 @@ Personnel::Personnel()
 {
 
 }
+
+Personnel::~Personnel()
+{
+
+}
