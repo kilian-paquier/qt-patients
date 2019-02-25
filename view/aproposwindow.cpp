@@ -12,3 +12,8 @@ AProposWindow::~AProposWindow()
 {
     delete ui;
 }
+
+void AProposWindow::on_pushButton_clicked()
+{
+
+}

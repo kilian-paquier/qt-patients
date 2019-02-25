@@ -12,3 +12,8 @@ PatientWindow::~PatientWindow()
 {
     delete ui;
 }
+
+void PatientWindow::on_pushButton_clicked()
+{
+
+}

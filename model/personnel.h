@@ -1,13 +1,14 @@
 #ifndef PERSONNEL_H
 #define PERSONNEL_H
 
-#include <string>
 #include "typemedecin.h"
+#include <string>
 using namespace std;
 
 class Personnel
 {
 private:
+    int identifiant;
     string nom;
     string prenom;
     TypeMedecin::personnel type;
@@ -17,11 +18,13 @@ public:
     ~Personnel();
 
     string & getNom();
+    int & getIdentifiant();
     string & getPrenom();
-    string & getType();
-    void setNom(string nom);
-    void setPrenom(string prenom);
-    void setType(TypeMedecin::personnel type);
+    TypeMedecin::personnel & getType();
+    void setNom(string & nom);
+    void setIdentifiant(int & identifiant);
+    void setPrenom(string & prenom);
+    void setType(TypeMedecin::personnel & type);
 };
 
 #endif // PERSONNEL_H

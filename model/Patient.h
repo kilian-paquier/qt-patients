@@ -1,17 +1,22 @@
 #pragma once
-#include <string>
+
+#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 using namespace std;
+#include <QDate>
 
 class Patient
 {
 private:
+    int identifiant;
 	string nom;
 	string prenom;
 	string adresse;
 	string ville;
 	string commentairesMaladie;
+    QDate date;
 
 	int codePostal;
 	int numeroTelephone;
@@ -28,6 +33,8 @@ public:
 	string & getAdresse();
 	string & getVille();
 	string & getCommentaires();
+    QDate & getDate();
+    int & getIdentifiant();
 	
 	int & getCodePostal();
 	int & getNumeroTelephone();
@@ -35,19 +42,21 @@ public:
 	int & getPriorite();
 
 	vector<int> & getIdentifiantsRessources();
-	void setIdentifiantsRessources(vector<int> identifiants);
-	void addIdentifiantRessources(int identifiant);
+    void setIdentifiantsRessources(vector<int> &identifiants);
+    void addIdentifiantRessources(int &identifiant);
 
-	void setNom(string nom);
-	void setPrenom(string prenom);
-	void setAdresse(string adresse);
-	void setVille(string ville);
-	void setCommentaires(string commentaires);
+    void setNom(string & nom);
+    void setPrenom(string & prenom);
+    void setAdresse(string & adresse);
+    void setVille(string & ville);
+    void setCommentaires(string & commentaires);
+    void setDate(QDate & date);
+    void setIdentifiant(int & identifiant);
 
-	void setCodePostal(int codePostal);
-	void setNumeroTelephone(int numeroTelephone);
-	void setDureeConsultation(int dureeConsultation);
-	void setPriorite(int priorite);
+    void setCodePostal(int & codePostal);
+    void setNumeroTelephone(int & numeroTelephone);
+    void setDureeConsultation(int & dureeConsultation);
+    void setPriorite(int & priorite);
 
 	bool operator<(Patient & patient);
 	void transform();

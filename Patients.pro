@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +29,10 @@ SOURCES += \
     model/informaticien.cpp \
     model/patient.cpp \
     model/personnel.cpp \
+    model/centre.cpp \
+    model/typemedecin.cpp \
+    model/utils.cpp \
+    model/c_init_bd.cpp \
     controler/controler.cpp \
     view/mainwindow.cpp \
     view/loginwindow.cpp \
@@ -37,10 +41,14 @@ SOURCES += \
     view/patientwindow.cpp
 
 HEADERS += \
+        mainwindow.h \
     model/informaticien.h \
     model/patient.h \
     model/personnel.h \
+    model/centre.h \
     model/typemedecin.h \
+    model/utils.h \
+    model/c_init_bd.h \
     controler/controler.h \
     view/mainwindow.h \
     view/patientwindow.h \

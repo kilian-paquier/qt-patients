@@ -12,3 +12,8 @@ PersonnelWindow::~PersonnelWindow()
 {
     delete ui;
 }
+
+void PersonnelWindow::on_pushButton_2_clicked()
+{
+
+}
