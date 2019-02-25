@@ -59,6 +59,7 @@ FORMS += \
     view/mainwindow.ui \
     view/loginwindow.ui \
     view/personnelwindow.ui \
+    view/aproposwindow.ui \
     view/patientwindow.ui
 
 # Default rules for deployment.
