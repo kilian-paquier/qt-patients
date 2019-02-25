@@ -41,7 +41,6 @@ SOURCES += \
     view/patientwindow.cpp
 
 HEADERS += \
-        mainwindow.h \
     model/informaticien.h \
     model/patient.h \
     model/personnel.h \
@@ -58,7 +57,6 @@ HEADERS += \
 
 FORMS += \
     view/mainwindow.ui \
-    view/aproposwindow.ui \
     view/loginwindow.ui \
     view/personnelwindow.ui \
     view/patientwindow.ui
@@ -74,5 +72,4 @@ SUBDIRS += \
 DISTFILES += \
     README.md
 
-RESOURCES += \
-    polytech.qrc
+RESOURCES +=
