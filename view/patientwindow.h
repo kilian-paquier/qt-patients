@@ -22,6 +22,8 @@ private slots:
 
     void on_btnAnnuler_clicked();
 
+    void on_btnAjouterListe_clicked();
+
 private:
     Ui::PatientWindow *ui;
 };

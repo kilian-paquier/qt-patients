@@ -6,6 +6,9 @@ PatientWindow::PatientWindow(QWidget *parent) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
+    ui->comboBoxPersonnelSoins->addItem("50");
+    ui->comboBoxPersonnelSoins->addItem("6");
+    ui->comboBoxPersonnelSoins->addItem("0");
 }
 
 PatientWindow::~PatientWindow()
@@ -23,9 +26,10 @@ bool PatientWindow::verification()
     unsigned int codePostal = static_cast<unsigned int>(ui->lineEditCodePostal->text().toInt());
     int dureeConsult = ui->spinDureeConsultation->value();
     int priorite = ui->spinPriorite->value();
-    QDate date = ui->dateConsultation->
+    //QDate date = ui->dateConsultation->
     std::string telephone = ui->lineEditTelephone->text().toStdString();
     std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
+
 
     if(nom != "" && prenom != "")
     {
@@ -37,4 +41,11 @@ bool PatientWindow::verification()
 void PatientWindow::on_btnAnnuler_clicked()
 {
     close();
+}
+
+void PatientWindow::on_btnAjouterListe_clicked()
+{
+    QString idPersonnel = ui->comboBoxPersonnelSoins->currentText();
+    ui->listPersonnelSoins->addItem(idPersonnel);
+    ui->comboBoxPersonnelSoins->removeItem(ui->comboBoxPersonnelSoins->currentIndex());
 }

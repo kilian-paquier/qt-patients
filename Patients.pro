@@ -71,12 +71,10 @@ SUBDIRS += \
     Patients.pro
 
 DISTFILES += \
-    README.md
+    README.md \
+    hospital.png
 
-<<<<<<< HEAD
+
 RESOURCES += \
     polytech.qrc
 
-=======
-RESOURCES +=
->>>>>>> faaa15ded3c7e6c0da1f124ec57849f6106de20b
