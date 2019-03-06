@@ -13,7 +13,9 @@ AProposWindow::~AProposWindow()
     delete ui;
 }
 
-void AProposWindow::on_pushButton_clicked()
-{
 
+
+void AProposWindow::on_btnRetour_clicked()
+{
+    close();
 }

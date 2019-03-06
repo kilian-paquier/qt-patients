@@ -72,6 +72,5 @@ SUBDIRS += \
 
 DISTFILES += \
     README.md
-
-RESOURCES +=
+RESOURCES += \
     polytech.qrc

@@ -14,9 +14,13 @@ class PatientWindow : public QDialog
 public:
     explicit PatientWindow(QWidget *parent = nullptr);
     ~PatientWindow();
+    bool verification();
+
 
 private slots:
-    void on_pushButton_clicked();
+
+
+    void on_btnAnnuler_clicked();
 
 private:
     Ui::PatientWindow *ui;
