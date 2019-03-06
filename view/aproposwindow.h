@@ -16,7 +16,9 @@ public:
     ~AProposWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+
+    void on_btnRetour_clicked();
 
 private:
     Ui::AProposWindow *ui;

@@ -24,14 +24,14 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="btnAjouter">
       <property name="text">
        <string>Ajouter</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="btnAnnuler">
       <property name="text">
        <string>Annuler</string>
       </property>
@@ -71,7 +71,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="lineEditNom"/>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -92,7 +92,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_3"/>
+       <widget class="QLineEdit" name="lineEditPrenom"/>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -113,7 +113,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="comboBoxType">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="iconSize">
          <size>
           <width>16</width>
@@ -137,14 +140,20 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="login">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Login : </string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_5">
+       <widget class="QLineEdit" name="lineEditLogin">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="readOnly">
          <bool>true</bool>
         </property>
@@ -162,14 +171,20 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="mdp">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Mot de Passe :</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_4">
+       <widget class="QLineEdit" name="lineEditMDP">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>

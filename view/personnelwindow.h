@@ -16,7 +16,15 @@ public:
     ~PersonnelWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
+
+
+    void on_btnAnnuler_clicked();
+
+    void on_btnAjouter_clicked();
+
+    bool verifier();
+
+    void on_comboBoxType_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::PersonnelWindow *ui;

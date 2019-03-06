@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
-    <height>650</height>
+    <width>701</width>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,21 +17,21 @@
    <property name="geometry">
     <rect>
      <x>480</x>
-     <y>560</y>
+     <y>370</y>
      <width>195</width>
      <height>80</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="btnAjouter">
       <property name="text">
        <string>Ajouter</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="btnAnnuler">
       <property name="text">
        <string>Annuler</string>
       </property>
@@ -45,7 +45,7 @@
      <x>10</x>
      <y>10</y>
      <width>341</width>
-     <height>541</height>
+     <height>441</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -71,7 +71,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="lineEditNom"/>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -92,7 +92,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_3"/>
+       <widget class="QLineEdit" name="lineEditPrenom"/>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -113,7 +113,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_2"/>
+       <widget class="QLineEdit" name="lineEditAdresse"/>
       </item>
       <item>
        <widget class="QLabel" name="label_6">
@@ -134,7 +134,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_5"/>
+       <widget class="QLineEdit" name="lineEditVille"/>
       </item>
       <item>
        <widget class="QLabel" name="label_10">
@@ -155,7 +155,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_4"/>
+       <widget class="QLineEdit" name="lineEditCodePostal">
+        <property name="locale">
+         <locale language="French" country="France"/>
+        </property>
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_8">
@@ -176,7 +183,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="dateEdit"/>
+       <widget class="QDateEdit" name="dateConsultation"/>
       </item>
       <item>
        <widget class="QLabel" name="label_12">
@@ -200,7 +207,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_2">
+       <widget class="QSpinBox" name="spinDureeConsultation">
         <property name="minimum">
          <number>5</number>
         </property>
@@ -237,7 +244,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox">
+       <widget class="QSpinBox" name="spinPriorite">
         <property name="minimum">
          <number>1</number>
         </property>
@@ -270,7 +277,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_6"/>
+         <widget class="QLineEdit" name="lineEditTelephone"/>
         </item>
        </layout>
       </item>
@@ -282,7 +289,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="textEdit"/>
+       <widget class="QTextEdit" name="textEditCommentaire"/>
       </item>
      </layout>
     </item>
@@ -308,10 +315,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="comboBoxPersonnelSoins"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="btnAjouterListe">
         <property name="text">
          <string>Ajouter</string>
         </property>
@@ -333,7 +340,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="listWidget">
+     <widget class="QListWidget" name="listPersonnelSoins">
       <item>
        <property name="text">
         <string>Liste Personnel de soins</string>

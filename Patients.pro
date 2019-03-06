@@ -76,3 +76,4 @@ DISTFILES += \
 
 RESOURCES += \
     polytech.qrc
+

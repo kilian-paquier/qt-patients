@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="enabled">
@@ -49,6 +49,11 @@
           <layout class="QFormLayout" name="formLayout">
            <item row="0" column="0">
             <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Recherche Patient :</string>
              </property>
@@ -64,7 +69,7 @@
               </widget>
              </item>
              <item alignment="Qt::AlignRight|Qt::AlignVCenter">
-              <widget class="QLineEdit" name="lineEdit_5">
+              <widget class="QLineEdit" name="lineEditNom">
                <property name="text">
                 <string>Boulanger</string>
                </property>
@@ -88,7 +93,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="lineEditPrenom">
                <property name="text">
                 <string>Alex</string>
                </property>
@@ -106,7 +111,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_4">
+              <widget class="QLineEdit" name="lineEditID">
                <property name="text">
                 <string>26</string>
                </property>
@@ -131,7 +136,7 @@
            <item row="4" column="1">
             <layout class="QGridLayout" name="gridLayout">
              <item row="0" column="1">
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="btnRechercher">
                <property name="text">
                 <string>Rechercher</string>
                </property>
@@ -176,14 +181,14 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btnModifier">
            <property name="text">
             <string>Modifier</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="btnSupprimer">
            <property name="text">
             <string>Supprimer</string>
            </property>
@@ -248,7 +253,7 @@
   </action>
   <action name="actionPatient">
    <property name="icon">
-    <iconset resource="../polytech.qrc">
+    <iconset>
      <normaloff>:/Pictures/polytech tours.gif</normaloff>:/Pictures/polytech tours.gif</iconset>
    </property>
    <property name="text">
@@ -267,8 +272,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../polytech.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
