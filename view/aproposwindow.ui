@@ -38,7 +38,7 @@
      <x>10</x>
      <y>10</y>
      <width>231</width>
-     <height>81</height>
+     <height>71</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -48,7 +48,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../polytech.qrc">:/polytech tours.gif</pixmap>
+       <pixmap resource="../polytech.qrc">:/polytech_tours.gif</pixmap>
       </property>
      </widget>
     </item>

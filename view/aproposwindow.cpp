@@ -13,8 +13,6 @@ AProposWindow::~AProposWindow()
     delete ui;
 }
 
-
-
 void AProposWindow::on_btnRetour_clicked()
 {
     close();

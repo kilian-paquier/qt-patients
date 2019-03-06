@@ -256,14 +256,18 @@
   </action>
   <action name="actionPatient">
    <property name="icon">
-    <iconset>
-     <normaloff>:/Pictures/polytech tours.gif</normaloff>:/Pictures/polytech tours.gif</iconset>
+    <iconset resource="../icon_patient.qrc">
+     <normaloff>:/icon_patient.png</normaloff>:/icon_patient.png</iconset>
    </property>
    <property name="text">
     <string>Patient</string>
    </property>
   </action>
   <action name="actionPersonnel_de_soins">
+   <property name="icon">
+    <iconset resource="../icon_nurse.qrc">
+     <normaloff>:/icon_nurse.png</normaloff>:/icon_nurse.png</iconset>
+   </property>
    <property name="text">
     <string>Personnel de soins</string>
    </property>
@@ -275,6 +279,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../icon_patient.qrc"/>
+  <include location="../icon_nurse.qrc"/>
+ </resources>
  <connections/>
 </ui>

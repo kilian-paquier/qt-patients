@@ -3,7 +3,6 @@
 
 #include "model/utils.h"
 #include <cctype>
-#include "view/mainwindow.h"
 #include "model/Patient.h"
 #include "model/personnel.h"
 #include "model/informaticien.h"
@@ -23,26 +22,20 @@
 class Controler
 {
 private:
-    MainWindow window;
     Centre centre;
 public:
     Controler();
     ~Controler();
 
-    MainWindow & getWindow();
-
     void createPatient(string & nom, string & prenom, string & adresse, string & ville, QDate & date, int & codePostal, int & dureeConsultation, int & priorite, vector<int> & identifiants, int & numeroTelephone, string & commentaires);
-    void createPersonnel(string & nom, string & prenom, TypeMedecin::personnel & type);
-    void createInformaticien(string & nom, string & prenom, TypeMedecin::personnel & type, string & login, string & password);
+    void createPersonnel(string & nom, string & prenom, string & type);
+    void createInformaticien(string & nom, string & prenom, string & type, string & login, string & password);
     void updatePatient(int & idPatient, string & nom, string & prenom, string & adresse, string & ville, QDate & date, int & codePostal, int & dureeConsultation, int & priorite, vector<int> & identifiants, int & numeroTelephone, string & commentaires);
-    void updatePersonnel(int &idPersonnel, string & nom, string & prenom, TypeMedecin::personnel & type);
-    void updateInformaticien(int & idInformaticien, string & nom, string & prenom, TypeMedecin::personnel & type, string & login, string & password);
+    void updatePersonnel(int &idPersonnel, string & nom, string & prenom, string & type);
+    void updateInformaticien(int & idInformaticien, string & nom, string & prenom, string & type, string & login, string & password);
     void deletePatient();
     void deletePersonnel();
     void deleteInformaticien();
-
-signals:
-    int actionRealised(int & action);
 };
 
 #endif // CONTROLER_H

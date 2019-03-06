@@ -30,7 +30,6 @@ SOURCES += \
     model/patient.cpp \
     model/personnel.cpp \
     model/centre.cpp \
-    model/typemedecin.cpp \
     model/utils.cpp \
     model/c_init_bd.cpp \
     controler/controler.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     model/patient.h \
     model/personnel.h \
     model/centre.h \
-    model/typemedecin.h \
     model/utils.h \
     model/c_init_bd.h \
     controler/controler.h \
@@ -72,9 +70,14 @@ SUBDIRS += \
 
 DISTFILES += \
     README.md \
-    hospital.png
 
+
+
+    README.md
 
 RESOURCES += \
+    icon_patient.qrc \
+    icon_nurse.qrc \
+    app_icon.qrc \
     polytech.qrc
 
