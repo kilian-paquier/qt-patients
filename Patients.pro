@@ -74,3 +74,4 @@ DISTFILES += \
     README.md
 
 RESOURCES +=
+    polytech.qrc
