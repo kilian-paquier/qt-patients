@@ -1,7 +1,5 @@
 #include "personnelwindow.h"
 #include "ui_personnelwindow.h"
-#include "model/typemedecin.h"
-#include "controler/controler.h"
 
 PersonnelWindow::PersonnelWindow(QWidget *parent) :
     QDialog(parent),
@@ -9,13 +7,13 @@ PersonnelWindow::PersonnelWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBoxType->addItem("Medecin A",TypeMedecin::Medecin_A);
-    ui->comboBoxType->addItem("Medecin B",TypeMedecin::Medecin_B);
-    ui->comboBoxType->addItem("Radiologue",TypeMedecin::Radiologue);
-    ui->comboBoxType->addItem("Infirmiere",TypeMedecin::Infirmiere);
-    ui->comboBoxType->addItem("Kine",TypeMedecin::Kine);
-    ui->comboBoxType->addItem("Psychologue",TypeMedecin::Psychologue);
-    ui->comboBoxType->addItem("Informaticien",TypeMedecin::Informaticien);
+    ui->comboBoxType->addItem("Medecin A");
+    ui->comboBoxType->addItem("Medecin B");
+    ui->comboBoxType->addItem("Radiologue");
+    ui->comboBoxType->addItem("Infirmiere");
+    ui->comboBoxType->addItem("Kine");
+    ui->comboBoxType->addItem("Psychologue");
+    ui->comboBoxType->addItem("Informaticien");
 }
 
 PersonnelWindow::~PersonnelWindow()
@@ -23,7 +21,10 @@ PersonnelWindow::~PersonnelWindow()
     delete ui;
 }
 
-
+void PersonnelWindow::setControler(Controler &c)
+{
+    this->c = c;
+}
 
 void PersonnelWindow::on_btnAnnuler_clicked()
 {
@@ -32,13 +33,20 @@ void PersonnelWindow::on_btnAnnuler_clicked()
 
 void PersonnelWindow::on_btnAjouter_clicked()
 {
-    if (verifier() == true)
-    {
+    bool success = verifier();
+    if (success) {
+        std::string nom = ui->lineEditNom->text().toStdString();
+        std::string prenom = ui->lineEditPrenom->text().toStdString();
+        std::string type = ui->comboBoxType->currentText().toStdString();
 
-    }
-    else
-    {
-
+        if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") == 0) {
+            c.createPersonnel(nom, prenom, type);
+        }
+        else {
+            std::string login = ui->lineEditLogin->text().toStdString();
+            std::string mdp = ui->lineEditMDP->text().toStdString();
+            c.createInformaticien(nom, prenom, type, login, mdp);
+        }
     }
 }
 
@@ -53,7 +61,7 @@ bool PersonnelWindow::verifier()
 
     if(nom != "" && prenom != "")
     {
-        if (type == "informaticien")
+        if (type.compare("Informaticien"))
         {
             if(login != "" && mdp != "")
                 resultat = true;
@@ -67,7 +75,7 @@ bool PersonnelWindow::verifier()
 
 void PersonnelWindow::on_comboBoxType_currentIndexChanged(const QString &arg1)
 {
-    if (arg1 == "Informaticien")
+    if (arg1.compare("Informaticien"))
     {
         ui->lineEditLogin->setEnabled(true);
         ui->lineEditLogin->setReadOnly(false);

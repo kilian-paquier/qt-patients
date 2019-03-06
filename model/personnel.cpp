@@ -26,7 +26,7 @@ string &Personnel::getPrenom()
     return prenom;
 }
 
-TypeMedecin::personnel &Personnel::getType()
+string &Personnel::getType()
 {
     return type;
 }
@@ -46,7 +46,7 @@ void Personnel::setPrenom(string & prenom)
     this->prenom = prenom;
 }
 
-void Personnel::setType(TypeMedecin::personnel & type)
+void Personnel::setType(string & type)
 {
     this->type = type;
 }

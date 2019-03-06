@@ -1,7 +1,6 @@
 #ifndef PERSONNEL_H
 #define PERSONNEL_H
 
-#include "typemedecin.h"
 #include <string>
 using namespace std;
 
@@ -11,7 +10,7 @@ private:
     int identifiant;
     string nom;
     string prenom;
-    TypeMedecin::personnel type;
+    string type;
 
 public:
     Personnel();
@@ -20,11 +19,11 @@ public:
     string & getNom();
     int & getIdentifiant();
     string & getPrenom();
-    TypeMedecin::personnel & getType();
+    string & getType();
     void setNom(string & nom);
     void setIdentifiant(int & identifiant);
     void setPrenom(string & prenom);
-    void setType(TypeMedecin::personnel & type);
+    void setType(string & type);
 };
 
 #endif // PERSONNEL_H

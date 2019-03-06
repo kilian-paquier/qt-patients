@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>polytech_tours.gif</file>
+        <file>icon_patient.png</file>
     </qresource>
 </RCC>

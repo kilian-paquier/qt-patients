@@ -19,9 +19,14 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Controler controller;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    Controler & getController();
+    void setController(Controler & controller);
 
 private slots:
     void on_actionQuitter_triggered();

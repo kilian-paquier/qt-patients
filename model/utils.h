@@ -31,6 +31,7 @@ public:
     static bool deletePatientFromBDD(Patient & patient);
     static bool deletePersonnelFromBDD(Personnel & personnel);
     static bool deleteInformaticienFromBDD(Informaticien & informaticien);
+    static bool connectInformaticien(string & login, string & password);
 };
 
 #endif // UTILS_H

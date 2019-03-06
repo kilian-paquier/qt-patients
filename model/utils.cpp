@@ -88,7 +88,7 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     query.prepare(queryString);
     query.bindValue(0, QVariant(QString::fromStdString(personnel.getNom())));
     query.bindValue(1, QVariant(QString::fromStdString(personnel.getPrenom())));
-    query.bindValue(2, personnel.getType());
+    query.bindValue(2, QVariant(QString::fromStdString(personnel.getType())));
     bool success = query.exec();
     if (!success) {
         qDebug() << query.lastError().text();
@@ -239,7 +239,7 @@ bool Utils::updatePersonnelInBDD(Personnel &personnel)
     query.prepare(queryString);
     query.bindValue(0, QVariant(QString::fromStdString(personnel.getNom())));
     query.bindValue(1, QVariant(QString::fromStdString(personnel.getPrenom())));
-    query.bindValue(2, personnel.getType());
+    query.bindValue(2, QVariant(QString::fromStdString(personnel.getType())));
     query.bindValue(3, personnel.getIdentifiant());
     bool success = query.exec();
     if (!success) {

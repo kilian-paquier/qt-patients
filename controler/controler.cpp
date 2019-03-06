@@ -10,11 +10,6 @@ Controler::~Controler()
 
 }
 
-MainWindow &Controler::getWindow()
-{
-    return window;
-}
-
 void Controler::createPatient(string &nom, string &prenom, string &adresse, string &ville, QDate &date, int &codePostal, int &dureeConsultation, int &priorite, vector<int> &identifiants, int &numeroTelephone, string &commentaires)
 {
     Patient patient;
@@ -39,7 +34,7 @@ void Controler::createPatient(string &nom, string &prenom, string &adresse, stri
         centre.addPatient(patient);
 }
 
-void Controler::createPersonnel(string &nom, string &prenom, TypeMedecin::personnel &type)
+void Controler::createPersonnel(string &nom, string &prenom, string &type)
 {
     Personnel personnel;
     personnel.setNom(nom);
@@ -50,7 +45,7 @@ void Controler::createPersonnel(string &nom, string &prenom, TypeMedecin::person
         centre.addPersonnel(personnel);
 }
 
-void Controler::createInformaticien(string &nom, string &prenom, TypeMedecin::personnel &type, string &login, string &password)
+void Controler::createInformaticien(string &nom, string &prenom, string &type, string &login, string &password)
 {
     Informaticien personnel;
     personnel.setNom(nom);
@@ -63,6 +58,7 @@ void Controler::createInformaticien(string &nom, string &prenom, TypeMedecin::pe
         centre.addInformaticien(personnel);
 }
 
+// ERREUR CREER FONCTION UTILS CPP
 void Controler::updatePatient(int & idPatient, string &nom, string &prenom, string &adresse, string &ville, QDate &date, int &codePostal, int &dureeConsultation, int &priorite, vector<int> &identifiants, int &numeroTelephone, string &commentaires)
 {
     Patient & patient = centre.getPatients()[centre.searchPatient(idPatient)];
@@ -84,7 +80,7 @@ void Controler::updatePatient(int & idPatient, string &nom, string &prenom, stri
     bool success = Utils::updatePatientInBDD(patient);
 }
 
-void Controler::updatePersonnel(int &idPersonnel, string &nom, string &prenom, TypeMedecin::personnel &type)
+void Controler::updatePersonnel(int &idPersonnel, string &nom, string &prenom, string &type)
 {
     Personnel & personnel = centre.getPersonnels()[centre.searchPersonnel(idPersonnel)];
     personnel.setNom(nom);
@@ -94,7 +90,7 @@ void Controler::updatePersonnel(int &idPersonnel, string &nom, string &prenom, T
     bool success = Utils::updatePersonnelInBDD(personnel);
 }
 
-void Controler::updateInformaticien(int &idInformaticien, string &nom, string &prenom, TypeMedecin::personnel &type, string &login, string &password)
+void Controler::updateInformaticien(int &idInformaticien, string &nom, string &prenom, string &type, string &login, string &password)
 {
     Informaticien & informaticien = centre.getInformaticiens()[centre.searchInformaticien(idInformaticien)];
     informaticien.setNom(nom);
