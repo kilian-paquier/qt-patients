@@ -30,7 +30,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     query.bindValue(3, QVariant(QString::fromStdString(patient.getVille())));
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
-    query.bindValue(6, patient.getNumeroTelephone());
+    query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
     query.bindValue(9, QVariant(patient.getDate()));
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
@@ -42,7 +42,7 @@ bool Utils::writePatientInBDD(Patient &patient)
         return false;
     }
 
-    success = query.exec("SELECT LAST_INSERT_ID() FROM TPatient");
+    success = query.exec("SELECT last_insert_rowid() FROM TPatient");
     int id = 0;
     if (success) {
         while (query.next())
@@ -83,20 +83,36 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     db.setDatabaseName("base_tmp.sqli");
     db.open();
 
+    QSqlQuery typeQuery(db);
+    typeQuery.prepare("SELECT Id FROM TType WHERE Label = ?");
+    typeQuery.bindValue(0, QVariant(QString::fromStdString(personnel.getType())));
+    bool success = typeQuery.exec();
+    if (!success) {
+        qDebug() << typeQuery.lastError().text();
+        qDebug() << "Select dans TType impossible !\n";
+        return false;
+    }
+    int idType = 1;
+    while (typeQuery.next()) {
+        idType = typeQuery.value(0).toInt();
+    }
+
     QSqlQuery query(db);
     QString queryString("INSERT INTO TRessource (Nom, Prenom, IdType) values(?,?,?)");
+
     query.prepare(queryString);
     query.bindValue(0, QVariant(QString::fromStdString(personnel.getNom())));
     query.bindValue(1, QVariant(QString::fromStdString(personnel.getPrenom())));
-    query.bindValue(2, QVariant(QString::fromStdString(personnel.getType())));
-    bool success = query.exec();
+    query.bindValue(2, idType);
+
+    success = query.exec();
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TRessource impossible !\n";
         return false;
     }
 
-    success = query.exec("SELECT LAST_INSERT_ID() FROM TRessource");
+    success = query.exec("SELECT last_insert_rowid() FROM TRessource");
     int id = 0;
     if (success) {
         while (query.next())
@@ -140,7 +156,7 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
             return false;
         }
 
-        success = query.exec("SELECT LAST_INSERT_ID() FROM TCompte");
+        success = query.exec("SELECT last_insert_rowid() FROM TCompte");
         int id = 0;
         if (success) {
             while (query.next())
@@ -183,7 +199,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(3, QVariant(QString::fromStdString(patient.getVille())));
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
-    query.bindValue(6, patient.getNumeroTelephone());
+    query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
     query.bindValue(9, QVariant(patient.getDate()));
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
@@ -234,14 +250,28 @@ bool Utils::updatePersonnelInBDD(Personnel &personnel)
     db.setDatabaseName("base_tmp.sqli");
     db.open();
 
+    QSqlQuery typeQuery(db);
+    typeQuery.prepare("SELECT Id FROM TType WHERE Label = ?");
+    typeQuery.bindValue(0, QVariant(QString::fromStdString(personnel.getType())));
+    bool success = typeQuery.exec();
+    if (!success) {
+        qDebug() << typeQuery.lastError().text();
+        qDebug() << "Select dans TType impossible !\n";
+        return false;
+    }
+    int idType = 1;
+    while (typeQuery.next()) {
+        idType = typeQuery.value(0).toInt();
+    }
+
     QSqlQuery query(db);
     QString queryString("UPDATE TRessource set Nom = ?, Prenom = ?, IdType = ? where Id = ?");
     query.prepare(queryString);
     query.bindValue(0, QVariant(QString::fromStdString(personnel.getNom())));
     query.bindValue(1, QVariant(QString::fromStdString(personnel.getPrenom())));
-    query.bindValue(2, QVariant(QString::fromStdString(personnel.getType())));
+    query.bindValue(2, idType);
     query.bindValue(3, personnel.getIdentifiant());
-    bool success = query.exec();
+    success = query.exec();
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TRessource impossible !\n";
@@ -398,4 +428,203 @@ bool Utils::deleteInformaticienFromBDD(Informaticien &informaticien)
     else {
         return false;
     }
+}
+
+bool Utils::connectInformaticien(string &login, string &password)
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+
+    db.setDatabaseName("base_tmp.sqli");
+    db.open();
+
+    QSqlQuery query(db);
+    QString queryString("SELECT * FROM TCompte where Login = ? and MdP = ?");
+    query.prepare(queryString);
+    query.bindValue(0, QVariant(QString::fromStdString(login)));
+    query.bindValue(1, QVariant(QString::fromStdString(password)));
+    bool success = query.exec();
+    if (!success) {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans TCompte impossible !\n";
+        return false;
+    }
+    else {
+        success = false;
+        while (query.next()) {
+            success = true;
+        }
+    }
+
+    db.close();
+    db.removeDatabase("QSQLITE");
+
+    return success;
+}
+
+vector<Personnel> & Utils::loadPersonnels()
+{
+    vector<Personnel> * personnels = new vector<Personnel>;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+
+    db.setDatabaseName("base_tmp.sqli");
+    db.open();
+
+    QSqlQuery query(db);
+    QString queryString("SELECT * FROM TRessource where IdType != (SELECT Id FROM TType where Label = 'Informaticien')");
+    query.prepare(queryString);
+    bool success = query.exec();
+    if (!success) {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans TRessource impossible !\n";
+        return *personnels;
+    }
+    else {
+        while (query.next()) {
+            Personnel personnel;
+            int id = query.value(0).toInt();
+            int idType = query.value(3).toInt();
+            string nom = query.value(1).toString().toStdString();
+            string prenom = query.value(2).toString().toStdString();
+            QSqlQuery queryType(db);
+            queryType.prepare("SELECT Label FROM TType where Id = ?");
+            queryType.bindValue(0, idType);
+            queryType.exec();
+            string type;
+            while (queryType.next()) {
+                type = queryType.value(0).toString().toStdString();
+            }
+            personnel.setNom(nom);
+            personnel.setIdentifiant(id);
+            personnel.setPrenom(prenom);
+            personnel.setType(type);
+            personnels->push_back(personnel);
+        }
+    }
+
+    db.close();
+    db.removeDatabase("QSQLITE");
+
+    return *personnels;
+}
+
+vector<Patient> & Utils::loadPatients()
+{
+    vector<Patient> * patients = new vector<Patient>;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+
+    db.setDatabaseName("base_tmp.sqli");
+    db.open();
+
+    QSqlQuery query(db);
+    QString queryString("SELECT * FROM TPatient");
+    query.prepare(queryString);
+    bool success = query.exec();
+    if (!success) {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans TPatient impossible !\n";
+        return *patients;
+    }
+    else {
+        while (query.next()) {
+            Patient patient;
+            int id = query.value(0).toInt();
+            QSqlQuery consultations(db);
+            consultations.prepare("SELECT IdRessource FROM TConsult where IdPatient = ?");
+            consultations.bindValue(0, id);
+            consultations.exec();
+            vector<int> ressources;
+            while (consultations.next()) {
+                ressources.push_back(consultations.value(0).toInt());
+            }
+            string nom = query.value(1).toString().toStdString();
+            string prenom = query.value(2).toString().toStdString();
+            string adresse = query.value(3).toString().toStdString();
+            string ville = query.value(4).toString().toStdString();
+            unsigned int codePostal = query.value(5).toUInt();
+            string commentaire = query.value(6).toString().toStdString();
+            string tel = query.value(7).toString().toStdString();
+            QDate dateConsult = query.value(8).toDate();
+            int duree = query.value(9).toInt();
+            int priorite = query.value(10).toInt();
+
+            patient.setNom(nom);
+            patient.setIdentifiant(id);
+            patient.setPrenom(prenom);
+            patient.setVille(ville);
+            patient.setAdresse(adresse);
+            patient.setCodePostal(codePostal);
+            patient.setCommentaires(commentaire);
+            patient.setNumeroTelephone(tel);
+            patient.setDate(dateConsult);
+            patient.setDureeConsultation(duree);
+            patient.setPriorite(priorite);
+            patient.setIdentifiantsRessources(ressources);
+            patients->push_back(patient);
+        }
+    }
+
+    db.close();
+    db.removeDatabase("QSQLITE");
+
+    return *patients;
+}
+
+vector<Informaticien> & Utils::loadInformaticien()
+{
+    vector<Informaticien> * personnels = new vector<Informaticien>;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+
+    db.setDatabaseName("base_tmp.sqli");
+    db.open();
+
+    QSqlQuery query(db);
+    QString queryString("SELECT * FROM TRessource INNER JOIN TCompte ON TRessource.Id = TCompte.IdRessource where IdType = (SELECT Id FROM TType where Label = 'Informaticien')");
+    query.prepare(queryString);
+    bool success = query.exec();
+    if (!success) {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans TRessource - TCompte impossible !\n";
+        return *personnels;
+    }
+    else {
+        while (query.next()) {
+            Informaticien personnel;
+            int id = query.value(0).toInt();
+            string nom = query.value(1).toString().toStdString();
+            string prenom = query.value(2).toString().toStdString();
+            string type = "Informaticien";
+            int idInfo = query.value(4).toInt();
+            string login = query.value(5).toString().toStdString();
+            string password = query.value(6).toString().toStdString();
+            personnel.setNom(nom);
+            personnel.setIdentifiant(id);
+            personnel.setPrenom(prenom);
+            personnel.setType(type);
+            personnel.setLogin(login);
+            personnel.setPassword(password);
+            personnel.setIdInformaticien(idInfo);
+            personnels->push_back(personnel);
+        }
+    }
+
+    db.close();
+    db.removeDatabase("QSQLITE");
+
+    return *personnels;
 }

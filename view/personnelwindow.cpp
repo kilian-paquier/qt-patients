@@ -7,11 +7,11 @@ PersonnelWindow::PersonnelWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBoxType->addItem("Medecin A");
-    ui->comboBoxType->addItem("Medecin B");
+    ui->comboBoxType->addItem("Médecin A");
+    ui->comboBoxType->addItem("Médecin B");
     ui->comboBoxType->addItem("Radiologue");
-    ui->comboBoxType->addItem("Infirmiere");
-    ui->comboBoxType->addItem("Kine");
+    ui->comboBoxType->addItem("Infirmière");
+    ui->comboBoxType->addItem("Kinésithérapeute");
     ui->comboBoxType->addItem("Psychologue");
     ui->comboBoxType->addItem("Informaticien");
 }
@@ -39,13 +39,15 @@ void PersonnelWindow::on_btnAjouter_clicked()
         std::string prenom = ui->lineEditPrenom->text().toStdString();
         std::string type = ui->comboBoxType->currentText().toStdString();
 
-        if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") == 0) {
+        if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
             c.createPersonnel(nom, prenom, type);
+            personnelAccepted();
         }
         else {
             std::string login = ui->lineEditLogin->text().toStdString();
             std::string mdp = ui->lineEditMDP->text().toStdString();
             c.createInformaticien(nom, prenom, type, login, mdp);
+            informaticienAccepted();
         }
     }
 }
@@ -59,23 +61,29 @@ bool PersonnelWindow::verifier()
     std::string login = ui->lineEditLogin->text().toStdString();
     std::string mdp = ui->lineEditMDP->text().toStdString();
 
-    if(nom != "" && prenom != "")
+    if(nom.compare("") != 0 && prenom.compare("") != 0)
     {
-        if (type.compare("Informaticien"))
+        if (type.compare("Informaticien") == 0)
         {
-            if(login != "" && mdp != "")
+            if(login.compare("") != 0 && mdp.compare("") != 0)
                 resultat = true;
+            else {
+                QMessageBox::warning(this,"Attention","Un champ obligatoire n'a pas été rempli");
+            }
         }
         else {
             resultat = true;
         }
+    }
+    else {
+        QMessageBox::warning(this,"Attention","Un champ obligatoire n'a pas été rempli");
     }
     return resultat;
 }
 
 void PersonnelWindow::on_comboBoxType_currentIndexChanged(const QString &arg1)
 {
-    if (arg1.compare("Informaticien"))
+    if (arg1.compare("Informaticien") == 0)
     {
         ui->lineEditLogin->setEnabled(true);
         ui->lineEditLogin->setReadOnly(false);

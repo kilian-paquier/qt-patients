@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <string>
 #include "../controler/controler.h"
+#include <QMessageBox>
 
 namespace Ui {
 class PatientWindow;
@@ -24,11 +25,9 @@ public:
 private slots:
     void on_btnAnnuler_clicked();
 
-
     void on_btnAjouterListe_clicked();
 
     void on_btnAjouter_clicked();
-
 
 private:
     Ui::PatientWindow *ui;

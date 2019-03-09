@@ -37,6 +37,15 @@ private slots:
 
     void on_actionA_propos_triggered();
 
+public slots:
+    void connectionSucceeded();
+
+    void patientCreated();
+
+    void personnelCreated();
+
+    void informaticienCreated();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *modelTable;

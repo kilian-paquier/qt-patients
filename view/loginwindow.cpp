@@ -21,10 +21,7 @@ bool LoginWindow::authentifier()
     std::string login = ui->Login->text().toStdString();
     std::string password = ui->Password->text().toStdString();
 
-    if(login == "admin" && password == "admin123")
-    {
-        resultat = true;
-    }
+    resultat = Utils::connectInformaticien(login, password);
 
     return resultat;
 }
@@ -33,6 +30,7 @@ void LoginWindow::on_Connexion_clicked()
 {
     if(authentifier())
     {
+        accepted();
         this->hide();
         parentWidget()->show();
     }

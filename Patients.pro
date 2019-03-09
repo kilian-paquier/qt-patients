@@ -71,10 +71,6 @@ SUBDIRS += \
 DISTFILES += \
     README.md \
 
-
-
-    README.md
-
 RESOURCES += \
     icon_patient.qrc \
     icon_nurse.qrc \

@@ -18,8 +18,8 @@ private:
 	string commentairesMaladie;
     QDate date;
 
-	int codePostal;
-	int numeroTelephone;
+    unsigned int codePostal;
+    string numeroTelephone;
 	int dureeConsultation;
 	int priorite;
 
@@ -36,8 +36,8 @@ public:
     QDate & getDate();
     int & getIdentifiant();
 	
-	int & getCodePostal();
-	int & getNumeroTelephone();
+    unsigned int & getCodePostal();
+    string & getNumeroTelephone();
 	int & getDureeConsultation();
 	int & getPriorite();
 
@@ -53,8 +53,8 @@ public:
     void setDate(QDate & date);
     void setIdentifiant(int & identifiant);
 
-    void setCodePostal(int & codePostal);
-    void setNumeroTelephone(int & numeroTelephone);
+    void setCodePostal(unsigned int & codePostal);
+    void setNumeroTelephone(string & numeroTelephone);
     void setDureeConsultation(int & dureeConsultation);
     void setPriorite(int & priorite);
 
