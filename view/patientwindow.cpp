@@ -6,9 +6,6 @@ PatientWindow::PatientWindow(QWidget *parent) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
-    ui->comboBoxPersonnelSoins->addItem("50");
-    ui->comboBoxPersonnelSoins->addItem("6");
-    ui->comboBoxPersonnelSoins->addItem("0");
 }
 
 PatientWindow::~PatientWindow()
@@ -23,17 +20,27 @@ bool PatientWindow::verification()
     std::string prenom = ui->lineEditPrenom->text().toStdString();
     std::string adresse = ui->lineEditAdresse->text().toStdString();
     std::string ville = ui->lineEditVille->text().toStdString();
-    unsigned int codePostal = static_cast<unsigned int>(ui->lineEditCodePostal->text().toInt());
     int dureeConsult = ui->spinDureeConsultation->value();
     int priorite = ui->spinPriorite->value();
-    //QDate date = ui->dateConsultation->
+    QDate date = ui->dateConsultation->date();
     std::string telephone = ui->lineEditTelephone->text().toStdString();
     std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
 
+    // PARSING DES RESSOURCES
 
-    if(nom != "" && prenom != "")
+    if(nom.compare("") != 0 && prenom.compare("") != 0 && adresse.compare("") != 0 && ville.compare("") != 0)
     {
-
+        if (QDate::currentDate() > date)
+            QMessageBox::warning(this,"Attention","La date saisie est avant la date d'aujourd'hui");
+        else if (dureeConsult <= 0)
+            QMessageBox::warning(this,"Attention","Le patient possède une durée de consultation de 0 minutes");
+        else if (priorite <= 0)
+            QMessageBox::warning(this,"Attention","La priorité ne peut pas être de 0");
+        else
+            resultat = true;
+    }
+    else {
+        QMessageBox::warning(this,"Attention","Un champ obligatoire n'a pas été rempli");
     }
     return resultat;
 }
@@ -41,6 +48,8 @@ bool PatientWindow::verification()
 void PatientWindow::setControler(Controler &c)
 {
     this->c = c;
+    for (unsigned int i = 0; i < c.getCentre().getPersonnels().size(); i++)
+        ui->comboBoxPersonnelSoins->addItem(QString::fromStdString(to_string(c.getCentre().getPersonnels()[i].getIdentifiant())));
 }
 
 void PatientWindow::on_btnAnnuler_clicked()
@@ -70,8 +79,9 @@ void PatientWindow::on_btnAjouter_clicked()
         QDate date = ui->dateConsultation->date();
         std::string telephone = ui->lineEditTelephone->text().toStdString();
         std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
+        vector<int> ressources;
 
-        //Controler::createPatient(nom, prenom, adresse, ville, date, codePostal, dureeConsult, priorite, vector<int>(), telephone, commentaire);
+        c.createPatient(nom, prenom, adresse, ville, date, codePostal, dureeConsult, priorite, ressources, telephone, commentaire);
+        accepted();
     }
->>>>>>> 726d1df40ec224d76672f18dda3be7c9a0e57917
 }

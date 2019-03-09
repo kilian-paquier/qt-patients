@@ -32,6 +32,9 @@ public:
     static bool deletePersonnelFromBDD(Personnel & personnel);
     static bool deleteInformaticienFromBDD(Informaticien & informaticien);
     static bool connectInformaticien(string & login, string & password);
+    static vector<Personnel> & loadPersonnels();
+    static vector<Patient> & loadPatients();
+    static vector<Informaticien> & loadInformaticien();
 };
 
 #endif // UTILS_H

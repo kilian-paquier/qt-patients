@@ -7,6 +7,7 @@
 #include "model/Patient.h"
 #include "model/personnel.h"
 #include "model/informaticien.h"
+#include "model/utils.h"
 using namespace std;
 
 #define PATIENT_NOT_IN_LIST 6000
@@ -16,9 +17,9 @@ using namespace std;
 class Centre
 {
 private:
-    vector<Patient> patients;
-    vector<Personnel> personnels;
-    vector<Informaticien> informaticiens;
+    vector<Patient> * patients;
+    vector<Personnel> * personnels;
+    vector<Informaticien> * informaticiens;
 public:
     Centre();
     ~Centre();

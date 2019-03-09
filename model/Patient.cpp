@@ -34,12 +34,12 @@ string & Patient::getCommentaires()
 	return commentairesMaladie;
 }
 
-int & Patient::getCodePostal()
+unsigned int & Patient::getCodePostal()
 {
 	return codePostal;
 }
 
-int & Patient::getNumeroTelephone()
+string & Patient::getNumeroTelephone()
 {
 	return numeroTelephone;
 }
@@ -94,12 +94,12 @@ void Patient::setCommentaires(string &commentaires)
 	(*this).commentairesMaladie = commentaires;
 }
 
-void Patient::setCodePostal(int &codePostal)
+void Patient::setCodePostal(unsigned int &codePostal)
 {
 	(*this).codePostal = codePostal;
 }
 
-void Patient::setNumeroTelephone(int &numeroTelephone)
+void Patient::setNumeroTelephone(string &numeroTelephone)
 {
 	(*this).numeroTelephone = numeroTelephone;
 }

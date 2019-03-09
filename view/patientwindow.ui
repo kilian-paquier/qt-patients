@@ -159,6 +159,9 @@
         <property name="locale">
          <locale language="French" country="France"/>
         </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhDigitsOnly</set>
+        </property>
         <property name="maxLength">
          <number>5</number>
         </property>
@@ -183,7 +186,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="dateConsultation"/>
+       <widget class="QDateEdit" name="dateConsultation">
+        <property name="inputMethodHints">
+         <set>Qt::ImhDate|Qt::ImhPreferNumbers</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_12">
@@ -277,7 +284,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEditTelephone"/>
+         <widget class="QLineEdit" name="lineEditTelephone">
+          <property name="inputMethodHints">
+           <set>Qt::ImhDigitsOnly</set>
+          </property>
+          <property name="maxLength">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

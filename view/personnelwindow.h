@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../controler/controler.h"
+#include <QMessageBox>
 
 namespace Ui {
 class PersonnelWindow;
@@ -19,8 +20,11 @@ public:
     ~PersonnelWindow();
     void setControler(Controler &c);
 
-private slots:
+signals:
+    void personnelAccepted();
+    void informaticienAccepted();
 
+private slots:
 
     void on_btnAnnuler_clicked();
 
