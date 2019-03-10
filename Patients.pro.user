@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <!-- Written by QtCreator 4.8.1, 2019-03-06T18:17:54. -->
 <qtcreator>
@@ -8,6 +9,9 @@
   <value type="QByteArray">{42d2b555-648b-45fb-91c9-85f26253f345}</value>
 =======
 <!-- Written by QtCreator 4.8.1, 2019-03-06T18:09:37. -->
+=======
+<!-- Written by QtCreator 4.8.1, 2019-03-09T15:15:05. -->
+>>>>>>> Stashed changes
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
