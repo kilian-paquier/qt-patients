@@ -354,13 +354,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="listPersonnelSoins">
-      <item>
-       <property name="text">
-        <string>Liste Personnel de soins :</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QListWidget" name="listPersonnelSoins"/>
     </item>
    </layout>
   </widget>

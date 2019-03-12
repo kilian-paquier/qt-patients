@@ -23,6 +23,8 @@ TreeView::TreeView()
 
 TreeView::~TreeView()
 {
+    for (unsigned int i = 0; i < personnels.size(); i++)
+        delete personnels[i];
     delete kine;
     delete informaticien;
     delete radiologue;
@@ -72,4 +74,9 @@ QStandardItem &TreeView::getInformaticien()
 QStandardItem &TreeView::getRadiologue()
 {
     return * radiologue;
+}
+
+vector<QStandardItem *> &TreeView::getPersonnels()
+{
+    return personnels;
 }

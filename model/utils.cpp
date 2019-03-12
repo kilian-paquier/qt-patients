@@ -17,32 +17,12 @@ bool Utils::writePatientInBDD(Patient &patient)
     db.open();
 
     QSqlQuery query(db);
-    QString queryString("INSERT INTO TPatient (Nom, Prenom, Adresse, Ville, CP, Commentaire, Tel, DateConsultation, DureeConsultation, Priorite) values(?,?,?,?,?,?,?,?,?,?)");
-    query.prepare(queryString);
-    query.bindValue(0, QVariant(QString::fromStdString(patient.getNom())));
-    query.bindValue(1, QVariant(QString::fromStdString(patient.getPrenom())));
-    query.bindValue(2, QVariant(QString::fromStdString(patient.getAdresse())));
-    query.bindValue(3, QVariant(QString::fromStdString(patient.getVille())));
-    query.bindValue(4, patient.getCodePostal());
-    query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
-    query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
-    query.bindValue(7, patient.getDate());
-    query.bindValue(8, patient.getDureeConsultation());
-    query.bindValue(9, patient.getPriorite());
 
-    bool success = query.exec();
-    if (!success) {
-        qDebug() << query.lastError().text();
-        qDebug() << "Insertion de données dans TPatient impossible !\n";
-        return false;
-    }
-
-    success = query.exec("SELECT max(Id) FROM TPatient");
+    bool success = query.exec("SELECT MAX(Id) FROM TPatient");
     int id = 0;
     if (success) {
         while (query.next()) {
-            id = query.value(0).Int;
-            cout << id << endl;
+            id = query.value(0).toInt();
         }
     }
     else {
@@ -50,12 +30,48 @@ bool Utils::writePatientInBDD(Patient &patient)
         qDebug() << "Select dans la table TPatient impossible ! \n";
         return false;
     }
+    id += 1;
     patient.setIdentifiant(id);
 
+    QString queryString("INSERT INTO TPatient (Id, Nom, Prenom, Adresse, Ville, CP, Commentaire, Tel, DateConsultation, DureeConsultation, Priorite) values(?,?,?,?,?,?,?,?,?,?,?)");
+    query.prepare(queryString);
+    query.bindValue(0, patient.getIdentifiant());
+    query.bindValue(1, QVariant(QString::fromStdString(patient.getNom())));
+    query.bindValue(2, QVariant(QString::fromStdString(patient.getPrenom())));
+    query.bindValue(3, QVariant(QString::fromStdString(patient.getAdresse())));
+    query.bindValue(4, QVariant(QString::fromStdString(patient.getVille())));
+    query.bindValue(5, patient.getCodePostal());
+    query.bindValue(6, QVariant(QString::fromStdString(patient.getCommentaires())));
+    query.bindValue(7, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
+    query.bindValue(8, patient.getDate());
+    query.bindValue(9, patient.getDureeConsultation());
+    query.bindValue(10, patient.getPriorite());
+
+    success = query.exec();
+    if (!success) {
+        qDebug() << query.lastError().text();
+        qDebug() << "Insertion de données dans TPatient impossible !\n";
+        return false;
+    }
+
+    success = query.exec("SELECT MAX(Id) FROM Tconsult");
+    if (success) {
+        while (query.next()) {
+            id = query.value(0).toInt();
+        }
+    }
+    else {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans la table TPatient impossible ! \n";
+        return false;
+    }
+
     for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
-        query.prepare("INSERT INTO TConsult (IdPatient, IdRessource) values(?,?)");
-        query.bindValue(0, patient.getIdentifiant());
-        query.bindValue(1, patient.getIdentifiantsRessources()[i]);
+        id += 1;
+        query.prepare("INSERT INTO TConsult (Id, IdPatient, IdRessource) values(?,?,?)");
+        query.bindValue(0, id);
+        query.bindValue(1, patient.getIdentifiant());
+        query.bindValue(2, patient.getIdentifiantsRessources()[i]);
         success = query.exec();
         if (!success) {
             qDebug() << query.lastError().text();
@@ -89,12 +105,28 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     }
 
     QSqlQuery query(db);
-    QString queryString("INSERT INTO TRessource (Nom, Prenom, IdType) values(?,?,?)");
+
+    success = query.exec("SELECT MAX(Id) FROM TRessource");
+    int id = 0;
+    if (success) {
+        while (query.next())
+            id = query.value(0).toInt();
+    }
+    else {
+        qDebug() << query.lastError().text();
+        qDebug() << "Select dans la table TRessource impossible ! \n";
+        return false;
+    }
+    id += 1;
+    personnel.setIdentifiant(id);
+
+    QString queryString("INSERT INTO TRessource (Id, Nom, Prenom, IdType) values(?,?,?,?)");
 
     query.prepare(queryString);
-    query.bindValue(0, QVariant(QString::fromStdString(personnel.getNom())));
-    query.bindValue(1, QVariant(QString::fromStdString(personnel.getPrenom())));
-    query.bindValue(2, idType);
+    query.bindValue(0, personnel.getIdentifiant());
+    query.bindValue(1, QVariant(QString::fromStdString(personnel.getNom())));
+    query.bindValue(2, QVariant(QString::fromStdString(personnel.getPrenom())));
+    query.bindValue(3, idType);
 
     success = query.exec();
     if (!success) {
@@ -102,19 +134,6 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
         qDebug() << "Insertion de données dans TRessource impossible !\n";
         return false;
     }
-
-    success = query.exec("SELECT last_insert_rowid() FROM TRessource");
-    int id = 0;
-    if (success) {
-        while (query.next())
-            id = query.value(0).Int;
-    }
-    else {
-        qDebug() << query.lastError().text();
-        qDebug() << "Select dans la table TRessource impossible ! \n";
-        return false;
-    }
-    personnel.setIdentifiant(id);
 
     db.close();
 
@@ -130,29 +149,33 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         db.open();
 
         QSqlQuery query(db);
-        QString queryString("INSERT INTO TCompte (Login, MdP) values(?,?)");
-        query.prepare(queryString);
-        query.bindValue(0, QVariant(QString::fromStdString(informaticien.getLogin())));
-        query.bindValue(1, QVariant(QString::fromStdString(informaticien.getPassword())));
-        bool success = query.exec();
-        if (!success) {
-            qDebug() << query.lastError().text();
-            qDebug() << "Insertion de données dans TCompte impossible !\n";
-            return false;
-        }
 
-        success = query.exec("SELECT last_insert_rowid() FROM TCompte");
+        success = query.exec("SELECT MAX(Id) FROM TCompte");
         int id = 0;
         if (success) {
             while (query.next())
-                id = query.value(0).Int;
+                id = query.value(0).toInt();
         }
         else {
             qDebug() << query.lastError().text();
             qDebug() << "Select dans la table TCompte impossible ! \n";
             return false;
         }
+        id += 1;
         informaticien.setIdInformaticien(id);
+
+        QString queryString("INSERT INTO TCompte (Id, IdRessource, Login, MdP) values(?,?,?)");
+        query.prepare(queryString);
+        query.bindValue(0, informaticien.getIdInformaticien());
+        query.bindValue(0, informaticien.getIdentifiant());
+        query.bindValue(1, QVariant(QString::fromStdString(informaticien.getLogin())));
+        query.bindValue(2, QVariant(QString::fromStdString(informaticien.getPassword())));
+        bool success = query.exec();
+        if (!success) {
+            qDebug() << query.lastError().text();
+            qDebug() << "Insertion de données dans TCompte impossible !\n";
+            return false;
+        }
 
         db.close();
 

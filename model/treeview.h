@@ -2,6 +2,8 @@
 #define TREEVIEW_H
 
 #include <QStandardItemModel>
+#include <vector>
+using namespace std;
 
 class TreeView
 {
@@ -15,6 +17,8 @@ private:
     QStandardItem * infirmiere;
     QStandardItem * radiologue;
     QStandardItem * informaticien;
+
+    vector<QStandardItem *> personnels;
 public:
     TreeView();
     ~TreeView();
@@ -27,6 +31,8 @@ public:
     QStandardItem & getInfirmiere();
     QStandardItem & getInformaticien();
     QStandardItem & getRadiologue();
+
+    vector<QStandardItem *> & getPersonnels();
 };
 
 #endif // TREEVIEW_H

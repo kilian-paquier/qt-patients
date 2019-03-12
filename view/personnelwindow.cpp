@@ -48,7 +48,12 @@ void PersonnelWindow::on_btnAjouter_clicked()
             std::string mdp = ui->lineEditMDP->text().toStdString();
             c.createInformaticien(nom, prenom, type, login, mdp);
             informaticienAccepted();
+            ui->lineEditMDP->setText("");
+            ui->lineEditLogin->setText("");
         }
+
+        ui->lineEditNom->setText("");
+        ui->lineEditPrenom->setText("");
     }
 }
 
