@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <!-- Written by QtCreator 4.8.1, 2019-03-09T17:32:07. -->
@@ -8,10 +9,14 @@
 <<<<<<< HEAD
 <!-- Written by QtCreator 4.8.1, 2019-03-06T18:17:54. -->
 >>>>>>> 097d6325ad7bae7136988f7754e81e33346924d5
+=======
+<!-- Written by QtCreator 4.8.1, 2019-03-12T10:19:13. -->
+>>>>>>> 1deb2cfd7ce1804fb7d19d384381977468c3d7d4
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
   <value type="QByteArray">{42d2b555-648b-45fb-91c9-85f26253f345}</value>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -31,6 +36,8 @@
 >>>>>>> 097d6325ad7bae7136988f7754e81e33346924d5
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> 1deb2cfd7ce1804fb7d19d384381977468c3d7d4
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>

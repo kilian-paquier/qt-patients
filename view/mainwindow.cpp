@@ -113,15 +113,23 @@ void MainWindow::fileWritten()
 
 void MainWindow::on_btnRechercher_clicked()
 {
-    std::string id = ui->lineEditID->text().toStdString();
-    std::string nom = ui->lineEditNom->text().toStdString();
-    std::string prenom = ui->lineEditPrenom->text().toStdString();
-    std::string date = ui->dateEdit->text().toStdString();
+    QString id = ui->lineEditID->text();
+    QString nom = ui->lineEditNom->text();
+    QString prenom = ui->lineEditPrenom->text();
+    QString date = ui->dateEdit->text();
     bool activer = ui->radioButtonActiver->isChecked();
+    Utils::initBD();
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
+    db.open();
+
     if(activer == true)
     {
-        QSqlQuery query = Utils::searchInBd(nom,prenom,id,date);
-
+        model->setFilter(QString("ID like '%%1%' AND NOM like '%%2%' AND PRENOM like '%%3%' AND DATE like '%%4%'").arg(id).arg(nom).arg(prenom).arg(date));
+    }
+    else {
+        model->setFilter(QString("ID like '%%1%' AND NOM like '%%2%' AND PRENOM like '%%3%'").arg(id).arg(nom).arg(prenom));
     }
 
+    ui->tableView->setModel(model);
+    db.close();
 }

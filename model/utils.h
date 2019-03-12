@@ -35,7 +35,8 @@ public:
     static vector<Personnel> & loadPersonnels();
     static vector<Patient> & loadPatients();
     static vector<Informaticien> & loadInformaticien();
-    static QSqlQuery searchInBd(std::string &nom, std::string &prenom, std::string &id, std::string &date);
+    static void openDB();
+    static void closeDB();
     static void initBD();
 };
 

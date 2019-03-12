@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     LoginWindow login(&w);
     login.show();
-
     QObject::connect(&login, SIGNAL(accepted()), &w, SLOT(connectionSucceeded()));
 
     return a.exec();

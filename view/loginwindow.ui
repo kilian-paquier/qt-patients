@@ -26,21 +26,14 @@
     <item row="0" column="1">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Login</string>
+       <string>Login :</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Password</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLineEdit" name="Password">
-      <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
+       <string>Password :</string>
       </property>
      </widget>
     </item>
@@ -48,6 +41,21 @@
      <widget class="QLineEdit" name="Login">
       <property name="inputMethodHints">
        <set>Qt::ImhNone</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLineEdit" name="Password">
+      <property name="font">
+       <font>
+        <stylestrategy>PreferDefault</stylestrategy>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
       </property>
      </widget>
     </item>
