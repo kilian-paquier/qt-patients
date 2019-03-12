@@ -66,7 +66,7 @@ bool C_INIT_BD::Creation_BD()
                           "Ville varchar(50), "
                           "CP integer, "
                           "Commentaire varchar(50), "
-                          "Tel varchar(50) unique, "
+                          "Tel varchar(50), "
                           "DateConsultation date, "
                           "DureeConsultation integer, "
                           "Priorite integer)");

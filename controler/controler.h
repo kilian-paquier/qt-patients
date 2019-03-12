@@ -3,21 +3,15 @@
 
 #include "model/utils.h"
 #include <cctype>
+#include <QFileDialog>
 #include "model/Patient.h"
 #include "model/personnel.h"
 #include "model/informaticien.h"
 #include "model/centre.h"
-
-#define PATIENT_CREATED 6001
-#define PATIENT_UPDATE 6002
-#define PATIENT_DELETED 6003
-#define PERSONNEL_CREATED 7001
-#define PERSONNEL_UPDATE 7002
-#define PERSONNEL_DELETED 7003
-#define INFORMATICIEN_CREATED 8001
-#define INFORMATICIEN_UPDATED 8002
-#define INFORMATICIEN_DELETED 8003
-#define ACTION_FAILED 9000
+#include <QIcon>
+#include <fstream>
+#include <QStandardItemModel>
+#include "model/treeview.h"
 
 class Controler
 {
@@ -36,6 +30,8 @@ public:
     void deletePatient();
     void deletePersonnel();
     void deleteInformaticien();
+    void loadTreeView(TreeView & tree);
+    void triPrioritaire(QDate date);
 
     Centre & getCentre();
 };

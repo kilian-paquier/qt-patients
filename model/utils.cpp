@@ -12,13 +12,8 @@ Utils::~Utils()
 
 bool Utils::writePatientInBDD(Patient &patient)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery query(db);
@@ -31,7 +26,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
     query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
-    query.bindValue(9, QVariant(patient.getDate()));
+    query.bindValue(7, patient.getDate());
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
 
@@ -42,11 +37,13 @@ bool Utils::writePatientInBDD(Patient &patient)
         return false;
     }
 
-    success = query.exec("SELECT last_insert_rowid() FROM TPatient");
+    success = query.exec("SELECT max(Id) FROM TPatient");
     int id = 0;
     if (success) {
-        while (query.next())
+        while (query.next()) {
             id = query.value(0).Int;
+            cout << id << endl;
+        }
     }
     else {
         qDebug() << query.lastError().text();
@@ -68,19 +65,13 @@ bool Utils::writePatientInBDD(Patient &patient)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
     return true;
 }
 
 bool Utils::writePersonnelInBDD(Personnel &personnel)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery typeQuery(db);
@@ -126,7 +117,6 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     personnel.setIdentifiant(id);
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return true;
 }
@@ -135,13 +125,8 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
 {
     bool success = writePersonnelInBDD(informaticien);
     if (success) {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+        QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-        db.setHostName("localhost");
-        db.setUserName("root");
-        db.setPassword("password");
-
-        db.setDatabaseName("base_tmp.sqli");
         db.open();
 
         QSqlQuery query(db);
@@ -170,7 +155,7 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         informaticien.setIdInformaticien(id);
 
         db.close();
-        db.removeDatabase("QSQLITE");
+
 
         return true;
     }
@@ -181,13 +166,8 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
 
 bool Utils::updatePatientInBDD(Patient &patient)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery query(db);
@@ -200,7 +180,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
     query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
-    query.bindValue(9, QVariant(patient.getDate()));
+    query.bindValue(9, patient.getDate());
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
     query.bindValue(10, patient.getIdentifiant());
@@ -235,19 +215,13 @@ bool Utils::updatePatientInBDD(Patient &patient)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
     return true;
 }
 
 bool Utils::updatePersonnelInBDD(Personnel &personnel)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery typeQuery(db);
@@ -279,7 +253,6 @@ bool Utils::updatePersonnelInBDD(Personnel &personnel)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return true;
 }
@@ -288,13 +261,8 @@ bool Utils::updateInformaticienInBDD(Informaticien &informaticien)
 {
     bool success = updatePersonnelInBDD(informaticien);
     if (success) {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+        QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-        db.setHostName("localhost");
-        db.setUserName("root");
-        db.setPassword("password");
-
-        db.setDatabaseName("base_tmp.sqli");
         db.open();
 
         QSqlQuery query(db);
@@ -311,7 +279,6 @@ bool Utils::updateInformaticienInBDD(Informaticien &informaticien)
         }
 
         db.close();
-        db.removeDatabase("QSQLITE");
 
         return true;
     }
@@ -322,13 +289,7 @@ bool Utils::updateInformaticienInBDD(Informaticien &informaticien)
 
 bool Utils::deletePatientFromBDD(Patient &patient)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
     QSqlQuery query(db);
@@ -355,19 +316,13 @@ bool Utils::deletePatientFromBDD(Patient &patient)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
     return true;
 }
 
 bool Utils::deletePersonnelFromBDD(Personnel &personnel)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery query(db);
@@ -391,7 +346,6 @@ bool Utils::deletePersonnelFromBDD(Personnel &personnel)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return true;
 }
@@ -400,13 +354,7 @@ bool Utils::deleteInformaticienFromBDD(Informaticien &informaticien)
 {
     bool success = deletePersonnelFromBDD(informaticien);
     if (success) {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-        db.setHostName("localhost");
-        db.setUserName("root");
-        db.setPassword("password");
-
-        db.setDatabaseName("base_tmp.sqli");
+        QSqlDatabase db = QSqlDatabase::database("QSQLITE");
         db.open();
 
         QSqlQuery query(db);
@@ -421,7 +369,6 @@ bool Utils::deleteInformaticienFromBDD(Informaticien &informaticien)
         }
 
         db.close();
-        db.removeDatabase("QSQLITE");
 
         return true;
     }
@@ -432,13 +379,7 @@ bool Utils::deleteInformaticienFromBDD(Informaticien &informaticien)
 
 bool Utils::connectInformaticien(string &login, string &password)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
     QSqlQuery query(db);
@@ -460,7 +401,6 @@ bool Utils::connectInformaticien(string &login, string &password)
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return success;
 }
@@ -468,13 +408,8 @@ bool Utils::connectInformaticien(string &login, string &password)
 vector<Personnel> & Utils::loadPersonnels()
 {
     vector<Personnel> * personnels = new vector<Personnel>;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery query(db);
@@ -510,7 +445,6 @@ vector<Personnel> & Utils::loadPersonnels()
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return *personnels;
 }
@@ -518,13 +452,8 @@ vector<Personnel> & Utils::loadPersonnels()
 vector<Patient> & Utils::loadPatients()
 {
     vector<Patient> * patients = new vector<Patient>;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
 
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
     db.open();
 
     QSqlQuery query(db);
@@ -576,7 +505,6 @@ vector<Patient> & Utils::loadPatients()
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return *patients;
 }
@@ -584,13 +512,7 @@ vector<Patient> & Utils::loadPatients()
 vector<Informaticien> & Utils::loadInformaticien()
 {
     vector<Informaticien> * personnels = new vector<Informaticien>;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
     QSqlQuery query(db);
@@ -624,20 +546,13 @@ vector<Informaticien> & Utils::loadInformaticien()
     }
 
     db.close();
-    db.removeDatabase("QSQLITE");
 
     return *personnels;
 }
 
 QSqlQuery Utils::searchInBd(std::string &nom, std::string &prenom, std::string &id,std::string &date)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setUserName("root");
-    db.setPassword("password");
-
-    db.setDatabaseName("base_tmp.sqli");
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
     QSqlQuery query(db);
@@ -650,4 +565,13 @@ QSqlQuery Utils::searchInBd(std::string &nom, std::string &prenom, std::string &
 
     db.close();
     db.removeDatabase("QSQLITE");
+}
+
+void Utils::initBD()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+    db.setDatabaseName("base_tmp.sqli");
 }

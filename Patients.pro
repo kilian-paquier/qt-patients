@@ -37,7 +37,8 @@ SOURCES += \
     view/loginwindow.cpp \
     view/aproposwindow.cpp \
     view/personnelwindow.cpp \
-    view/patientwindow.cpp
+    view/patientwindow.cpp \
+    model/treeview.cpp
 
 HEADERS += \
     model/informaticien.h \
@@ -51,7 +52,8 @@ HEADERS += \
     view/patientwindow.h \
     view/personnelwindow.h \
     view/aproposwindow.h \
-    view/loginwindow.h
+    view/loginwindow.h \
+    model/treeview.h
 
 FORMS += \
     view/mainwindow.ui \

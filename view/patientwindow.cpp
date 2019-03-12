@@ -6,6 +6,7 @@ PatientWindow::PatientWindow(QWidget *parent) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
+    ui->dateConsultation->setDate(QDate::currentDate());
 }
 
 PatientWindow::~PatientWindow()
@@ -83,5 +84,16 @@ void PatientWindow::on_btnAjouter_clicked()
 
         c.createPatient(nom, prenom, adresse, ville, date, codePostal, dureeConsult, priorite, ressources, telephone, commentaire);
         accepted();
+
+        ui->lineEditNom->setText("");
+        ui->lineEditPrenom->setText("");
+        ui->lineEditAdresse->setText("");
+        ui->lineEditVille->setText("");
+        ui->lineEditCodePostal->setText("");
+        ui->spinDureeConsultation->setValue(60);
+        ui->spinPriorite->setValue(1);
+        ui->dateConsultation->setDate(QDate::currentDate());
+        ui->lineEditTelephone->setText("");
+        ui->textEditCommentaire->setText("");
     }
 }

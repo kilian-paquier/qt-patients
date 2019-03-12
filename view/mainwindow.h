@@ -6,11 +6,13 @@
 #include <QTableView>
 #include <QItemDelegate>
 #include <QTreeView>
+#include <QObject>
 #include <QSqlTableModel>
 #include <QStandardItemModel>
 #include "patientwindow.h"
 #include "personnelwindow.h"
 #include "aproposwindow.h"
+#include "model/treeview.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +24,7 @@ class MainWindow : public QMainWindow
 
 private:
     Controler controller;
+    TreeView tree;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -49,10 +52,11 @@ public slots:
 
     void informaticienCreated();
 
+    void fileWritten();
+
 private:
     Ui::MainWindow *ui;
-    QStandardItemModel *modelTable;
-    QStandardItemModel *modelTree;
+    QSqlTableModel *model;
 };
 
 #endif // MAINWINDOW_H

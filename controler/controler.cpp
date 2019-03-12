@@ -110,6 +110,70 @@ void Controler::updateInformaticien(int &idInformaticien, string &nom, string &p
     Utils::updateInformaticienInBDD(informaticien);
 }
 
+void Controler::loadTreeView(TreeView & tree)
+{
+    for (unsigned int i = 0; i < centre.getPersonnels().size(); i++) {
+        Personnel & personnel = centre.getPersonnels()[i];
+        string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+        if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getMedecinA().appendRow(&item);
+        }
+        else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getMedecinB().appendRow(&item);
+        }
+        else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getKine().appendRow(&item);
+        }
+        else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getPsycho().appendRow(&item);
+        }
+        else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getRadiologue().appendRow(&item);
+        }
+        else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0) {
+            QStandardItem item(QString::fromStdString(personnelString));
+            tree.getInfirmiere().appendRow(&item);
+        }
+    }
+    for (unsigned int i = 0; i < centre.getInformaticiens().size(); i++) {
+        Informaticien & personnel = centre.getInformaticiens()[i];
+        string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+        QStandardItem item(QString::fromStdString(personnelString));
+        tree.getInformaticien().appendRow(&item);
+    }
+}
+
+void Controler::triPrioritaire(QDate date)
+{
+    vector<Patient> patientstries;
+    for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
+        if (centre.getPatients()[i].getDate() == date) {
+            patientstries.push_back(centre.getPatients()[i]);
+            centre.getPatients()[i].transform();
+        }
+    }
+    sort(centre.getPatients().begin(), centre.getPatients().end());
+
+    QFileDialog dialog;
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setWindowIcon(QIcon(":hospital.png"));
+    dialog.exec();
+
+    string fichier = dialog.getSaveFileName().toStdString();
+    ofstream fileInput(fichier, ios::out | ios::trunc);
+    if (fileInput) {
+        fileInput << "Consultations pour le jour : " << date.toString().toStdString() << endl;
+        for (unsigned int i = 0; i < patientstries.size(); i++)
+            fileInput << patientstries[i].getIdentifiant() << " " << patientstries[i].getNom() << " " << patientstries[i].getPrenom() << " Durée : " << patientstries[i].getDureeConsultation() << " minutes" << endl;
+        fileInput.close();
+    }
+}
+
 Centre &Controler::getCentre()
 {
     return centre;
