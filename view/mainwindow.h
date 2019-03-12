@@ -51,7 +51,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    QStandardItemModel *modelTable;
+    QSqlTableModel *model;
     QStandardItemModel *modelTree;
 };
 

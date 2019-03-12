@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.8.1, 2019-03-09T17:32:07. -->
-=======
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.8.1, 2019-03-06T18:17:54. -->
->>>>>>> 097d6325ad7bae7136988f7754e81e33346924d5
+<!-- Written by QtCreator 4.8.1, 2019-03-12T10:19:13. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
   <value type="QByteArray">{42d2b555-648b-45fb-91c9-85f26253f345}</value>
-<<<<<<< HEAD
-=======
-=======
-<!-- Written by QtCreator 4.8.1, 2019-03-06T18:09:37. -->
-=======
-<!-- Written by QtCreator 4.8.1, 2019-03-09T15:15:05. -->
->>>>>>> Stashed changes
-<qtcreator>
- <data>
-  <variable>EnvironmentId</variable>
-  <value type="QByteArray">{3aad0d6a-ab98-4de7-97d9-82fa2ef20ac7}</value>
->>>>>>> 2e570c125678d03f9dc4b5aa42b8d59fd8877478
->>>>>>> 097d6325ad7bae7136988f7754e81e33346924d5
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
