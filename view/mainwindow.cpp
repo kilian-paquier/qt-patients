@@ -9,29 +9,16 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(":hospital.png"));
 
     //Table View
-    modelTable = new QStandardItemModel();
-    QStandardItem *header0 = new QStandardItem("ID");
-    QStandardItem *header1 = new QStandardItem("Nom");
-    QStandardItem *header2 = new QStandardItem("Prénom");
-    QStandardItem *header3 = new QStandardItem("Date");
-    modelTable->setHorizontalHeaderItem(0,header0);
-    modelTable->setHorizontalHeaderItem(1,header1);
-    modelTable->setHorizontalHeaderItem(2,header2);
-    modelTable->setHorizontalHeaderItem(3,header3);
+    QSqlTableModel *model = new QSqlTableModel;
+    model->setTable("TPatient");
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->select();
+    model->setHeaderData(0,Qt::Horizontal,"ID");
+    model->setHeaderData(1,Qt::Horizontal,"Nom");
+    model->setHeaderData(2,Qt::Horizontal,"Prénom");
 
     // Attach the model to the view
-    ui->tableView->setModel(modelTable);
-
-    // Generate data
-    for(int row = 0; row < 4; row++)
-    {
-         for(int col = 0; col < 2; col++)
-         {
-              QModelIndex index = modelTable->index(row,col,QModelIndex());
-               // 0 for all data
-               modelTable->setData(index,0);
-          }
-     }
+    ui->tableView->setModel(model);
 
     //Tree View
     modelTree = new QStandardItemModel();
@@ -135,3 +122,18 @@ void MainWindow::informaticienCreated()
     ui->statusBar->showMessage("Informaticien créé", 3000);
 }
 
+
+void MainWindow::on_btnRechercher_clicked()
+{
+    std::string id = ui->lineEditID->text().toStdString();
+    std::string nom = ui->lineEditNom->text().toStdString();
+    std::string prenom = ui->lineEditPrenom->text().toStdString();
+    std::string date = ui->dateEdit->text().toStdString();
+    bool activer = ui->radioButtonActiver->isChecked();
+    if(activer == true)
+    {
+        QSqlQuery query = Utils::searchInBd(nom,prenom,id,date);
+
+    }
+
+}

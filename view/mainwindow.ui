@@ -132,6 +132,13 @@
               </widget>
              </item>
              <item>
+              <widget class="QRadioButton" name="radioButtonActiver">
+               <property name="text">
+                <string>Activer</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QDateEdit" name="dateEdit"/>
              </item>
             </layout>
@@ -155,7 +162,11 @@
             </layout>
            </item>
            <item row="5" column="0" colspan="2">
-            <widget class="QTableView" name="tableView"/>
+            <widget class="QTableView" name="tableView">
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -280,8 +291,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon_patient.qrc"/>
   <include location="../icon_nurse.qrc"/>
+  <include location="../icon_patient.qrc"/>
  </resources>
  <connections/>
 </ui>

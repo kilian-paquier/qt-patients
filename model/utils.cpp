@@ -628,3 +628,26 @@ vector<Informaticien> & Utils::loadInformaticien()
 
     return *personnels;
 }
+
+QSqlQuery Utils::searchInBd(std::string &nom, std::string &prenom, std::string &id,std::string &date)
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    db.setHostName("localhost");
+    db.setUserName("root");
+    db.setPassword("password");
+
+    db.setDatabaseName("base_tmp.sqli");
+    db.open();
+
+    QSqlQuery query(db);
+    QString queryString("SELECT * FROM TPatient WHERE Id = ?");
+    query.prepare(queryString);
+    query.bindValue(0, QVariant(QString::fromStdString(id)));
+    //query.bindValue(1, QVariant(QString::fromStdString(password)));
+    bool success = query.exec();
+    return query;
+
+    db.close();
+    db.removeDatabase("QSQLITE");
+}

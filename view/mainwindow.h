@@ -6,6 +6,7 @@
 #include <QTableView>
 #include <QItemDelegate>
 #include <QTreeView>
+#include <QSqlTableModel>
 #include <QStandardItemModel>
 #include "patientwindow.h"
 #include "personnelwindow.h"
@@ -36,6 +37,8 @@ private slots:
     void on_actionPersonnel_de_soins_triggered();
 
     void on_actionA_propos_triggered();
+
+    void on_btnRechercher_clicked();
 
 public slots:
     void connectionSucceeded();
