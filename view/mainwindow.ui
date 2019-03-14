@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1089</width>
-    <height>653</height>
+    <width>1187</width>
+    <height>743</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -22,8 +22,8 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>1041</width>
-      <height>551</height>
+      <width>1151</width>
+      <height>631</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -47,7 +47,7 @@
        <rect>
         <x>20</x>
         <y>90</y>
-        <width>991</width>
+        <width>1121</width>
         <height>91</height>
        </rect>
       </property>
@@ -173,8 +173,10 @@
        <rect>
         <x>19</x>
         <y>169</y>
-        <width>991</width>
-        <height>311</height>
+
+        <width>1121</width>
+        <height>431</height>
+
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -195,7 +197,7 @@
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>991</width>
+        <width>1361</width>
         <height>60</height>
        </rect>
       </property>
@@ -284,8 +286,8 @@
        <rect>
         <x>19</x>
         <y>9</y>
-        <width>511</width>
-        <height>301</height>
+        <width>1121</width>
+        <height>591</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -294,6 +296,19 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
          <item>
           <widget class="QPushButton" name="btnModifier">
            <property name="text">
@@ -320,7 +335,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1089</width>
+     <width>1187</width>
      <height>26</height>
     </rect>
    </property>

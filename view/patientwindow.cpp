@@ -27,8 +27,6 @@ bool PatientWindow::verification()
     std::string telephone = ui->lineEditTelephone->text().toStdString();
     std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
 
-    // PARSING DES RESSOURCES
-
     if(nom.compare("") != 0 && prenom.compare("") != 0 && adresse.compare("") != 0 && ville.compare("") != 0)
     {
         if (QDate::currentDate() > date)
@@ -81,6 +79,13 @@ void PatientWindow::on_btnAjouter_clicked()
         std::string telephone = ui->lineEditTelephone->text().toStdString();
         std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
         vector<int> ressources;
+        for(int i = 0; i < ui->listPersonnelSoins->count(); i++) {
+            QListWidgetItem * item = ui->listPersonnelSoins->item(i);
+            if (item->text().toInt() == 0)
+                continue;
+            ressources.push_back(item->text().toInt());
+            delete item;
+        }
 
         c.createPatient(nom, prenom, adresse, ville, date, codePostal, dureeConsult, priorite, ressources, telephone, commentaire);
         accepted();
@@ -95,5 +100,6 @@ void PatientWindow::on_btnAjouter_clicked()
         ui->dateConsultation->setDate(QDate::currentDate());
         ui->lineEditTelephone->setText("");
         ui->textEditCommentaire->setText("");
+        ui->listPersonnelSoins->clear();
     }
 }

@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     controller.loadTreeView(tree);
     ui->treeView->setModel(&tree.getModel());
     ui->dateEdit->setDate(QDate::currentDate());
+    ui->dateEditPlanifier->setDate(QDate::currentDate());
 }
 
 MainWindow::~MainWindow()
@@ -98,11 +99,13 @@ void MainWindow::patientCreated()
 void MainWindow::personnelCreated()
 {
     ui->statusBar->showMessage("Personnel créé", 3000);
+    controller.updateTreeView(tree, controller.getCentre().getPersonnels().back());
 }
 
 void MainWindow::informaticienCreated()
 {
     ui->statusBar->showMessage("Informaticien créé", 3000);
+    controller.updateTreeView(tree, controller.getCentre().getInformaticiens().back());
 }
 
 void MainWindow::fileWritten()

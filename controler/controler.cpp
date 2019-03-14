@@ -62,7 +62,6 @@ void Controler::createInformaticien(string &nom, string &prenom, string &type, s
         centre.addInformaticien(personnel);
 }
 
-// ERREUR CREER FONCTION UTILS CPP
 void Controler::updatePatient(int & idPatient, string &nom, string &prenom, string &adresse, string &ville, QDate &date, unsigned int &codePostal, int &dureeConsultation, int &priorite, vector<int> &identifiants, string &numeroTelephone, string &commentaires)
 {
     Patient & patient = centre.getPatients()[centre.searchPatient(idPatient)];
@@ -116,35 +115,82 @@ void Controler::loadTreeView(TreeView & tree)
         Personnel & personnel = centre.getPersonnels()[i];
         string personnelString = personnel.getNom() + " " + personnel.getPrenom();
         if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getMedecinA().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getMedecinA().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getMedecinB().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getMedecinB().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getKine().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getKine().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getPsycho().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getPsycho().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getRadiologue().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getRadiologue().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0) {
-            QStandardItem item(QString::fromStdString(personnelString));
-            tree.getInfirmiere().appendRow(&item);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getInfirmiere().appendRow(item);
+            tree.getPersonnels().push_back(item);
         }
     }
     for (unsigned int i = 0; i < centre.getInformaticiens().size(); i++) {
         Informaticien & personnel = centre.getInformaticiens()[i];
         string personnelString = personnel.getNom() + " " + personnel.getPrenom();
-        QStandardItem item(QString::fromStdString(personnelString));
-        tree.getInformaticien().appendRow(&item);
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getInformaticien().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+}
+
+void Controler::updateTreeView(TreeView &tree, Personnel &personnel)
+{
+    string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+    if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getMedecinA().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getMedecinB().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getKine().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getPsycho().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getRadiologue().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0) {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getInfirmiere().appendRow(item);
+        tree.getPersonnels().push_back(item);
+    }
+    else {
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        tree.getInformaticien().appendRow(item);
+        tree.getPersonnels().push_back(item);
     }
 }
 

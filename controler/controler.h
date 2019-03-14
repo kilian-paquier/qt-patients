@@ -31,7 +31,9 @@ public:
     void deletePersonnel();
     void deleteInformaticien();
     void loadTreeView(TreeView & tree);
-    //void triPrioritaire(QDate date);
+    void updateTreeView(TreeView & tree, Personnel & personnel);
+    void triPrioritaire(QDate date);
+
 
     Centre & getCentre();
 };
