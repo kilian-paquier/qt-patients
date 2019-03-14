@@ -148,7 +148,7 @@ void Controler::loadTreeView(TreeView & tree)
     }
 }
 
-void Controler::triPrioritaire(QDate date)
+/*void Controler::triPrioritaire(QDate date)
 {
     vector<Patient> patientstries;
     for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
@@ -172,7 +172,7 @@ void Controler::triPrioritaire(QDate date)
             fileInput << patientstries[i].getIdentifiant() << " " << patientstries[i].getNom() << " " << patientstries[i].getPrenom() << " Durée : " << patientstries[i].getDureeConsultation() << " minutes" << endl;
         fileInput.close();
     }
-}
+}*/
 
 Centre &Controler::getCentre()
 {
