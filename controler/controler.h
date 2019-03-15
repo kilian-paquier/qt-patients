@@ -34,6 +34,7 @@ public:
     void updateTreeView(TreeView & tree, Personnel & personnel);
     void triPrioritaire(QDate date);
 
+
     Centre & getCentre();
 };
 

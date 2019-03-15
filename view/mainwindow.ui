@@ -173,13 +173,22 @@
        <rect>
         <x>19</x>
         <y>169</y>
+
         <width>1121</width>
         <height>431</height>
+
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QTableView" name="tableView"/>
+        <widget class="QTableView" name="tableView">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -238,6 +247,32 @@
           </spacer>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>480</y>
+        <width>231</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QPushButton" name="BtnModifier">
+         <property name="text">
+          <string>Modifier</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="BtnSupprimer">
+         <property name="text">
+          <string>Supprimer</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -371,8 +406,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon_patient.qrc"/>
   <include location="../icon_nurse.qrc"/>
+  <include location="../icon_patient.qrc"/>
  </resources>
  <connections/>
 </ui>

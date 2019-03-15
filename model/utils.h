@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <string>
 #include "model/Patient.h"
 #include "model/personnel.h"

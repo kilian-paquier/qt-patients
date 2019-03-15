@@ -43,6 +43,12 @@ private slots:
 
     void on_btnRechercher_clicked();
 
+    void on_BtnModifier_clicked();
+
+    void on_BtnSupprimer_clicked();
+
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
 public slots:
     void connectionSucceeded();
 

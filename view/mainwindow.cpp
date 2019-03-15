@@ -119,20 +119,42 @@ void MainWindow::on_btnRechercher_clicked()
     QString id = ui->lineEditID->text();
     QString nom = ui->lineEditNom->text();
     QString prenom = ui->lineEditPrenom->text();
-    QString date = ui->dateEdit->text();
+    QDate date = ui->dateEdit->date();
+
     bool activer = ui->radioButtonActiver->isChecked();
-    Utils::initBD();
+
+
     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
+    model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%'").arg(id).arg(nom).arg(prenom));
+
     if(activer == true)
     {
-        model->setFilter(QString("ID like '%%1%' AND NOM like '%%2%' AND PRENOM like '%%3%' AND DATE like '%%4%'").arg(id).arg(nom).arg(prenom).arg(date));
-    }
-    else {
-        model->setFilter(QString("ID like '%%1%' AND NOM like '%%2%' AND PRENOM like '%%3%'").arg(id).arg(nom).arg(prenom));
+        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' AND DateConsultation like '%4%' ").arg(id).arg(nom).arg(prenom).arg(date.toString("yyyy-MM-dd")));
     }
 
     ui->tableView->setModel(model);
     db.close();
+}
+
+void MainWindow::on_BtnModifier_clicked()
+{
+
+}
+
+void MainWindow::on_BtnSupprimer_clicked()
+{
+
+}
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    int row = ui->tableView->currentIndex().row();
+    QString information = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
+    QMessageBox::information(
+        this,
+        tr("Application Name"),
+        tr("An information message.") );
+
 }
