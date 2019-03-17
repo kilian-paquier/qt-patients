@@ -43,11 +43,11 @@ private slots:
 
     void on_btnRechercher_clicked();
 
-    void on_BtnModifier_clicked();
-
-    void on_BtnSupprimer_clicked();
-
     void on_tableView_doubleClicked(const QModelIndex &index);
+
+    void on_treeView_doubleClicked(const QModelIndex &index);
+
+    void on_btnSupprimerPersonnel_clicked();
 
 public slots:
     void connectionSucceeded();
@@ -57,6 +57,10 @@ public slots:
     void personnelCreated();
 
     void informaticienCreated();
+
+    void personnelUpdated();
+
+    void informaticienUpdated();
 
     void fileWritten();
 

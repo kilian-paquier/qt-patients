@@ -33,7 +33,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="enabled">
@@ -173,10 +173,8 @@
        <rect>
         <x>19</x>
         <y>169</y>
-
         <width>1121</width>
         <height>431</height>
-
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -261,14 +259,14 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QPushButton" name="BtnModifier">
+        <widget class="QPushButton" name="BtnModifierPatient">
          <property name="text">
           <string>Modifier</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="BtnSupprimer">
+        <widget class="QPushButton" name="BtnSupprimerPatient">
          <property name="text">
           <string>Supprimer</string>
          </property>
@@ -310,14 +308,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btnModifier">
-           <property name="text">
-            <string>Modifier</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnSupprimer">
+          <widget class="QPushButton" name="btnSupprimerPersonnel">
            <property name="text">
             <string>Supprimer</string>
            </property>
@@ -406,8 +397,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon_nurse.qrc"/>
   <include location="../icon_patient.qrc"/>
+  <include location="../icon_nurse.qrc"/>
  </resources>
  <connections/>
 </ui>

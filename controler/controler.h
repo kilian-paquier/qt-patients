@@ -28,12 +28,12 @@ public:
     void updatePersonnel(int &idPersonnel, string & nom, string & prenom, string & type);
     void updateInformaticien(int & idInformaticien, string & nom, string & prenom, string & type, string & login, string & password);
     void deletePatient();
-    void deletePersonnel();
-    void deleteInformaticien();
+    void deletePersonnel(Personnel & personnel);
+    void deleteInformaticien(Informaticien & informaticien);
     void loadTreeView(TreeView & tree);
-    void updateTreeView(TreeView & tree, Personnel & personnel);
+    void insertInTreeView(TreeView & tree, Personnel & personnel);
+    void modifyTreeView(TreeView & tree, Personnel & personnel);
     void triPrioritaire(QDate date);
-
 
     Centre & getCentre();
 };

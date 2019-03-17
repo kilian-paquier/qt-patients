@@ -555,8 +555,8 @@ vector<Informaticien> & Utils::loadInformaticien()
             string prenom = query.value(2).toString().toStdString();
             string type = "Informaticien";
             int idInfo = query.value(4).toInt();
-            string login = query.value(5).toString().toStdString();
-            string password = query.value(6).toString().toStdString();
+            string login = query.value(6).toString().toStdString();
+            string password = query.value(7).toString().toStdString();
             personnel.setNom(nom);
             personnel.setIdentifiant(id);
             personnel.setPrenom(prenom);

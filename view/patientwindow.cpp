@@ -6,6 +6,7 @@ PatientWindow::PatientWindow(QWidget *parent) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Ajout de patients");
     ui->dateConsultation->setDate(QDate::currentDate());
 }
 
@@ -101,5 +102,8 @@ void PatientWindow::on_btnAjouter_clicked()
         ui->lineEditTelephone->setText("");
         ui->textEditCommentaire->setText("");
         ui->listPersonnelSoins->clear();
+        ui->comboBoxPersonnelSoins->clear();
+        for (unsigned int i = 0; i < c.getCentre().getPersonnels().size(); i++)
+            ui->comboBoxPersonnelSoins->addItem(QString::fromStdString(to_string(c.getCentre().getPersonnels()[i].getIdentifiant())));
     }
 }
