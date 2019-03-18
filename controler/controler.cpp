@@ -233,7 +233,7 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
     }
 }
 
-/*void Controler::triPrioritaire(QDate date)
+void Controler::triPrioritaire(QDate date)
 {
     vector<Patient> patientstries;
     for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
@@ -244,20 +244,38 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
     }
     sort(centre.getPatients().begin(), centre.getPatients().end());
 
+    QString jour;
+    if (date.day() < 10)
+        jour = "0" + QString::number(date.day());
+    else
+        jour = QString::number(date.day());
+
+    QString mois;
+    if (date.month() < 10)
+        mois = "0" + QString::number(date.month());
+    else
+        mois = QString::number(date.month());
     QFileDialog dialog;
     dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.selectFile("Planification_" + QString::number(date.day()) + QString::number(date.month()) + QString::number(date.year()));
     dialog.setWindowIcon(QIcon(":hospital.png"));
-    dialog.exec();
 
-    string fichier = dialog.getSaveFileName().toStdString();
-    ofstream fileInput(fichier, ios::out | ios::trunc);
-    if (fileInput) {
-        fileInput << "Consultations pour le jour : " << date.toString().toStdString() << endl;
-        for (unsigned int i = 0; i < patientstries.size(); i++)
-            fileInput << patientstries[i].getIdentifiant() << " " << patientstries[i].getNom() << " " << patientstries[i].getPrenom() << " Durée : " << patientstries[i].getDureeConsultation() << " minutes" << endl;
-        fileInput.close();
+    QString fichier = dialog.getSaveFileName(nullptr, "Enregistrer la planification", "Planification_"
+                                             + jour + mois + QString::number(date.year())
+                                             , "Fichier texte (*.txt)");
+    if (!fichier.isNull()) {
+        QFile fileInput(fichier);
+        if (fileInput.open(QFile::WriteOnly | QIODevice::Text)) {
+            QTextStream flux(&fileInput);
+            flux.setCodec("UFT-8");
+            flux << "Planification du : " + jour + "/" + mois + "/" + QString::number(date.year()) << endl;
+            for (unsigned int i = 0; i < patientstries.size(); i++)
+                flux << QString::number(patientstries[i].getIdentifiant()) + " " + QString::fromStdString(patientstries[i].getNom()) + " "
+                     + QString::fromStdString(patientstries[i].getPrenom()) << endl;
+            fileInput.close();
+        }
     }
-}*/
+}
 
 Centre &Controler::getCentre()
 {

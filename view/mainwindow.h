@@ -49,6 +49,8 @@ private slots:
 
     void on_btnSupprimerPersonnel_clicked();
 
+    void on_btnPlanifier_clicked();
+
 public slots:
     void connectionSucceeded();
 

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":hospital.png"));
+    this->setWindowTitle("DoctoPatients");
 
     //Table View
     model = new QSqlTableModel;
@@ -26,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Tree View
     controller.loadTreeView(tree);
+    ui->treeView->setHeaderHidden(true);
     ui->treeView->setModel(&tree.getModel());
     ui->treeView->expandAll();
     ui->dateEdit->setDate(QDate::currentDate());
@@ -234,4 +236,10 @@ void MainWindow::on_btnSupprimerPersonnel_clicked()
 
         ui->statusBar->showMessage("Personnel correctement supprimé");
     }
+}
+
+void MainWindow::on_btnPlanifier_clicked()
+{
+    QDate date = ui->dateEditPlanifier->date();
+    controller.triPrioritaire(date);
 }

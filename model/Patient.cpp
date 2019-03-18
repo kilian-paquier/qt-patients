@@ -116,8 +116,8 @@ void Patient::setPriorite(int &priorite)
 
 bool Patient::operator<(Patient & patient)
 {
-    int contraignanceThis = priorite * 100 + identifiantsRessources.size() * 10 + dureeConsultation;
-    int contraignancePatient = patient.getPriorite() * 100 + patient.getIdentifiantsRessources().size() * 10 + patient.getDureeConsultation();
+    int contraignanceThis = priorite * 100 + static_cast<int>(identifiantsRessources.size()) * 10 + dureeConsultation;
+    int contraignancePatient = patient.getPriorite() * 100 + static_cast<int>(patient.getIdentifiantsRessources().size()) * 10 + patient.getDureeConsultation();
 	return contraignanceThis < contraignancePatient;
 }
 

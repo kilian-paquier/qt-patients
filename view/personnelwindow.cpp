@@ -59,6 +59,7 @@ void PersonnelWindow::setInformaticien(Informaticien &informaticien)
     ui->lineEditLogin->setText(QString::fromStdString(informaticien.getLogin()));
     ui->lineEditMDP->setText(QString::fromStdString(informaticien.getPassword()));
     this->setWindowTitle("Modification de personnels");
+    ui->label_19->setText("Modifer un Personnel de soins");
 }
 
 Informaticien &PersonnelWindow::getInformaticien()

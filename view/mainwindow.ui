@@ -33,7 +33,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="enabled">
@@ -397,8 +397,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon_patient.qrc"/>
   <include location="../icon_nurse.qrc"/>
+  <include location="../icon_patient.qrc"/>
  </resources>
  <connections/>
 </ui>

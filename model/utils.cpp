@@ -164,12 +164,12 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         id += 1;
         informaticien.setIdInformaticien(id);
 
-        QString queryString("INSERT INTO TCompte (Id, IdRessource, Login, MdP) values(?,?,?)");
+        QString queryString("INSERT INTO TCompte (Id, IdRessource, Login, MdP) values(?,?,?,?)");
         query.prepare(queryString);
         query.bindValue(0, informaticien.getIdInformaticien());
-        query.bindValue(0, informaticien.getIdentifiant());
-        query.bindValue(1, QVariant(QString::fromStdString(informaticien.getLogin())));
-        query.bindValue(2, QVariant(QString::fromStdString(informaticien.getPassword())));
+        query.bindValue(1, informaticien.getIdentifiant());
+        query.bindValue(2, QVariant(QString::fromStdString(informaticien.getLogin())));
+        query.bindValue(3, QVariant(QString::fromStdString(informaticien.getPassword())));
         bool success = query.exec();
         if (!success) {
             qDebug() << query.lastError().text();
@@ -203,7 +203,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
     query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
-    query.bindValue(9, patient.getDate());
+    query.bindValue(7, patient.getDate());
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
     query.bindValue(10, patient.getIdentifiant());
@@ -216,7 +216,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     }
 
     for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
-        query.prepare("DELETE FROM TConsulte where IdPatient = ?");
+        query.prepare("DELETE FROM TConsult where IdPatient = ?");
         query.bindValue(0, patient.getIdentifiant());
         success = query.exec();
         if (success) {
