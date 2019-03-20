@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>A Propos de DoctoPatients</string>
   </property>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
@@ -37,8 +37,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>231</width>
-     <height>71</height>
+     <width>221</width>
+     <height>91</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">

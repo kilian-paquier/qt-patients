@@ -13,7 +13,6 @@
 #include "personnelwindow.h"
 #include "aproposwindow.h"
 #include "model/treeview.h"
-#include "actionpatientwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -44,7 +43,7 @@ private slots:
 
     void on_btnRechercher_clicked();
 
-    void on_BtnSupprimer_clicked();
+    void on_BtnSupprimerPatient_clicked();
 
     void on_tableView_doubleClicked(const QModelIndex &index);
 

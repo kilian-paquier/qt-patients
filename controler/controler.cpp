@@ -233,7 +233,7 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
     }
 }
 
-void Controler::triPrioritaire(QDate date)
+/*void Controler::triPrioritaire(QDate date)
 {
     vector<Patient> patientstries;
     for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
@@ -276,7 +276,7 @@ void Controler::triPrioritaire(QDate date)
         }
     }
 
-}
+}*/
 
 void Controler::deletePatient(int &idPatient)
 {

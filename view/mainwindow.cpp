@@ -169,35 +169,59 @@ void MainWindow::on_btnRechercher_clicked()
     {
         model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' AND DateConsultation like '%4%' ").arg(id).arg(nom).arg(prenom).arg(date.toString("yyyy-MM-dd")));
     }
+    int row = model->rowCount();
+    if (row == 0)
+    {
+        QMessageBox::warning(this, "Attention", "Aucun résultat pour cette recherche");
+        model->setTable("TPatient");
+        model->setEditStrategy(QSqlTableModel::OnFieldChange);
+        model->select();
+    }
+    else
+    {
+        ui->tableView->setModel(model);
+    }
 
-    ui->tableView->setModel(model);
     db.close();
 }
 
 
-void MainWindow::on_BtnSupprimer_clicked()
+void MainWindow::on_BtnSupprimerPatient_clicked()
 {
-    int row = ui->tableView->currentIndex().row();
-    int id = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
-    QString nom = ui->tableView->model()->data(ui->tableView->model()->index(row,1)).toString();
-    QString prenom = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
-    QMessageBox msgBox;
-    msgBox.setText("Etes-vous sûr de vouloir supprimer "+nom+" "+prenom+" ?");
-    QPushButton *deleteButton = msgBox.addButton(tr("Supprimer"), QMessageBox::ActionRole);
-    QPushButton *cancelButton = msgBox.addButton(tr("Annuler"));
-    msgBox.exec();
-
-    if (msgBox.clickedButton() == deleteButton) {
-        controller.deletePatient(id);
-        patientDeleted();
-    } else if (msgBox.clickedButton() == cancelButton) {
-        msgBox.close();
+    bool selected = ui->tableView->selectionModel()->isSelected(ui->tableView->currentIndex());
+    if (!selected)
+    {
+        QMessageBox::warning(this, "Attention", "Vous n'avez pas selectionné de patient");
     }
+    else
+    {
+        int row = ui->tableView->currentIndex().row();
+        int id = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
+        QString nom = ui->tableView->model()->data(ui->tableView->model()->index(row,1)).toString();
+        QString prenom = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Supprimer Patient");
+        msgBox.setText("Etes-vous sûr de vouloir supprimer "+nom+" "+prenom+" ?");
+        QPushButton *deleteButton = msgBox.addButton(tr("Supprimer"), QMessageBox::ActionRole);
+        QPushButton *cancelButton = msgBox.addButton(tr("Annuler"), QMessageBox::ActionRole);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == deleteButton) {
+            controller.deletePatient(id);
+            patientDeleted();
+        } else if (msgBox.clickedButton() == cancelButton) {
+            msgBox.close();
+        }
+        delete deleteButton;
+        delete cancelButton;
+    }
+
 }
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
-    int row = ui->tableView->currentIndex().row();
+
+    int row = index.row();
     int information = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
 
     PatientWindow patientWindow(this,information);
@@ -278,5 +302,5 @@ void MainWindow::on_btnSupprimerPersonnel_clicked()
 void MainWindow::on_btnPlanifier_clicked()
 {
     QDate date = ui->dateEditPlanifier->date();
-    controller.triPrioritaire(date);
+    //controller.triPrioritaire(date);
 }

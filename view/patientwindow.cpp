@@ -15,7 +15,7 @@ PatientWindow::PatientWindow(QWidget *parent,int &id) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
-
+    this->setWindowTitle("Modification de patients");
     Patient patient = Utils::getPatient(id);
     ui->lineEditNom->setText(QString::fromStdString(patient.getNom()));
     ui->lineEditPrenom->setText(QString::fromStdString(patient.getPrenom()));
