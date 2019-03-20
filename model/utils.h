@@ -37,6 +37,7 @@ public:
     static void openDB();
     static void closeDB();
     static void initBD();
+    static Patient getPatient(int &id);
 };
 
 #endif // UTILS_H

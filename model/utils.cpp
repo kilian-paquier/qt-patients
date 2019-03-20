@@ -203,7 +203,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(4, patient.getCodePostal());
     query.bindValue(5, QVariant(QString::fromStdString(patient.getCommentaires())));
     query.bindValue(6, QVariant(QString::fromStdString(patient.getNumeroTelephone())));
-    query.bindValue(9, patient.getDate());
+    query.bindValue(7, patient.getDate());
     query.bindValue(8, patient.getDureeConsultation());
     query.bindValue(9, patient.getPriorite());
     query.bindValue(10, patient.getIdentifiant());
@@ -215,11 +215,15 @@ bool Utils::updatePatientInBDD(Patient &patient)
         return false;
     }
 
-    for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
-        query.prepare("DELETE FROM TConsulte where IdPatient = ?");
+    query.prepare("DELETE FROM TConsult where IdPatient = ?");
+    query.bindValue(0, patient.getIdentifiant());
+    success = query.exec();
+
+        /*query.prepare("DELETE FROM TConsult where IdPatient = ?");
         query.bindValue(0, patient.getIdentifiant());
-        success = query.exec();
-        if (success) {
+        success = query.exec();*/
+    if (success) {
+        for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
             query.prepare("INSERT INTO TConsult (IdPatient, IdRessource) values(?,?)");
             query.bindValue(0, patient.getIdentifiant());
             query.bindValue(1, patient.getIdentifiantsRessources()[i]);
@@ -230,12 +234,13 @@ bool Utils::updatePatientInBDD(Patient &patient)
                 return false;
             }
         }
-        else {
-            qDebug() << query.lastError().text();
-            qDebug() << "Suppression de données dans TConsult impossible !\n";
-            return false;
-        }
     }
+    else {
+        qDebug() << query.lastError().text();
+        qDebug() << "Suppression de données dans TConsult impossible !\n";
+        return false;
+        }
+
 
     db.close();
     return true;
@@ -592,4 +597,51 @@ void Utils::initBD()
     db.setUserName("root");
     db.setPassword("password");
     db.setDatabaseName("base_tmp.sqli");
+}
+
+Patient Utils::getPatient(int &id)
+{
+    Patient patient;
+    QSqlDatabase db = QSqlDatabase::database("QSQLITE");
+    db.open();
+
+    QSqlQuery query(db);
+    query.prepare(QString("SELECT Nom, Prenom, Adresse, Ville, CP, Commentaire, Tel, DateConsultation, DureeConsultation, Priorite FROM TPatient WHERE Id = :id"));
+    query.bindValue(":id",id);
+    query.exec();
+    query.next();
+    string nom = query.value(0).toString().toStdString();
+    string prenom = query.value(1).toString().toStdString();
+    string adresse = query.value(2).toString().toStdString();
+    string ville = query.value(3).toString().toStdString();
+    unsigned int cp = query.value(4).toString().toUInt();
+    string com = query.value(5).toString().toStdString();
+    string tel = query.value(6).toString().toStdString();
+    QDate dateConsult = query.value(7).toDate();
+    int dureeConsult = query.value(8).toString().toInt();
+    int prio = query.value(9).toString().toInt();
+    patient.setNom(nom);
+    patient.setPrenom(prenom);
+    patient.setAdresse(adresse);
+    patient.setVille(ville);
+    patient.setCodePostal(cp);
+    patient.setCommentaires(com);
+    patient.setNumeroTelephone(tel);
+    patient.setDate(dateConsult);
+    patient.setDureeConsultation(dureeConsult);
+    patient.setPriorite(prio);
+
+    QSqlQuery queryRessource(db);
+    queryRessource.prepare(QString("SELECT IdRessource FROM TConsult WHERE IdPatient = :id"));
+    queryRessource.bindValue(":id",id);
+    queryRessource.exec();
+    while (queryRessource.next()) {
+        int idRessource = queryRessource.value(0).toInt();
+        patient.getIdentifiantsRessources().push_back(idRessource);
+    }
+
+    db.close();
+
+    return patient;
+
 }

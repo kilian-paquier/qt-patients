@@ -27,7 +27,7 @@ public:
     void updatePatient(int & idPatient, string & nom, string & prenom, string & adresse, string & ville, QDate & date, unsigned int & codePostal, int & dureeConsultation, int & priorite, vector<int> & identifiants, string & numeroTelephone, string & commentaires);
     void updatePersonnel(int &idPersonnel, string & nom, string & prenom, string & type);
     void updateInformaticien(int & idInformaticien, string & nom, string & prenom, string & type, string & login, string & password);
-    void deletePatient();
+    void deletePatient(int & idPatient);
     void deletePersonnel();
     void deleteInformaticien();
     void loadTreeView(TreeView & tree);

@@ -219,6 +219,12 @@ void Controler::updateTreeView(TreeView &tree, Personnel &personnel)
         fileInput.close();
     }
 }*/
+void Controler::deletePatient(int &idPatient)
+{
+    Patient patient;
+    patient.setIdentifiant(idPatient);
+    Utils::deletePatientFromBDD(patient);
+}
 
 Centre &Controler::getCentre()
 {

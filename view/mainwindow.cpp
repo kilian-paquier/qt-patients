@@ -113,6 +113,21 @@ void MainWindow::fileWritten()
      ui->statusBar->showMessage("Ecriture dans le fichier réalisée", 3000);
 }
 
+void MainWindow::patientUpdated()
+{
+    ui->statusBar->showMessage("Patient modifié", 3000);
+    model->setTable("TPatient");
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->select();
+}
+
+void MainWindow::patientDeleted()
+{
+    ui->statusBar->showMessage("Patient supprimé", 3000);
+    model->setTable("TPatient");
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->select();
+}
 
 void MainWindow::on_btnRechercher_clicked()
 {
@@ -138,23 +153,33 @@ void MainWindow::on_btnRechercher_clicked()
     db.close();
 }
 
-void MainWindow::on_BtnModifier_clicked()
-{
-
-}
-
 void MainWindow::on_BtnSupprimer_clicked()
 {
+    int row = ui->tableView->currentIndex().row();
+    int id = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
+    QString nom = ui->tableView->model()->data(ui->tableView->model()->index(row,1)).toString();
+    QString prenom = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
+    QMessageBox msgBox;
+    msgBox.setText("Etes-vous sûr de vouloi supprimer "+nom+" "+prenom+" ?");
+    QPushButton *deleteButton = msgBox.addButton(tr("Supprimer"), QMessageBox::ActionRole);
+    QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+    msgBox.exec();
 
+    if (msgBox.clickedButton() == deleteButton) {
+        controller.deletePatient(id);
+        patientDeleted();
+    } else if (msgBox.clickedButton() == cancelButton) {
+        msgBox.close();
+    }
 }
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
     int row = ui->tableView->currentIndex().row();
-    QString information = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
-    QMessageBox::information(
-        this,
-        tr("Application Name"),
-        tr("An information message.") );
+    int information = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
 
+    PatientWindow patientWindow(this,information);
+    patientWindow.setControler(controller);
+    QObject::connect(&patientWindow, SIGNAL(accepted()), this, SLOT(patientUpdated()));
+    patientWindow.exec();
 }

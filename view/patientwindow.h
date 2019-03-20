@@ -18,9 +18,12 @@ private:
     Controler c;
 public:
     explicit PatientWindow(QWidget *parent = nullptr);
+    explicit PatientWindow(QWidget *parent,int &id);
     ~PatientWindow();
     bool verification();
     void setControler(Controler & c);
+    void setId(int &id);
+    int getId();
 
 private slots:
     void on_btnAnnuler_clicked();
@@ -31,6 +34,7 @@ private slots:
 
 private:
     Ui::PatientWindow *ui;
+    int id = 0;
 };
 
 #endif // AJOUTERPATIENT_H

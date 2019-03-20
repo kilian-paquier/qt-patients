@@ -173,10 +173,8 @@
        <rect>
         <x>19</x>
         <y>169</y>
-
         <width>1121</width>
-        <height>431</height>
-
+        <height>371</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -253,20 +251,13 @@
      <widget class="QWidget" name="horizontalLayoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>780</x>
-        <y>480</y>
+        <x>910</x>
+        <y>550</y>
         <width>231</width>
         <height>51</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="BtnModifier">
-         <property name="text">
-          <string>Modifier</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="BtnSupprimer">
          <property name="text">
@@ -406,8 +397,8 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon_nurse.qrc"/>
   <include location="../icon_patient.qrc"/>
+  <include location="../icon_nurse.qrc"/>
  </resources>
  <connections/>
 </ui>
