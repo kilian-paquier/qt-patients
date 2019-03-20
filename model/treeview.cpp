@@ -11,6 +11,17 @@ TreeView::TreeView()
     medecinB = new QStandardItem("Médecin B");
     infirmiere = new QStandardItem("Infirmière");
     psycho = new QStandardItem("Psychologue");
+
+    title->setFlags(title->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+
+    kine->setFlags(kine->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    infirmiere->setFlags(infirmiere->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    psycho->setFlags(psycho->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    medecinB->setFlags(medecinB->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    medecinA->setFlags(medecinA->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    radiologue->setFlags(radiologue->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+    informaticien->setFlags(informaticien->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+
     model->appendRow(title);
     title->appendRow(kine);
     title->appendRow(medecinA);
@@ -74,6 +85,32 @@ QStandardItem &TreeView::getInformaticien()
 QStandardItem &TreeView::getRadiologue()
 {
     return * radiologue;
+}
+
+QStandardItem &TreeView::getTitle()
+{
+    return * title;
+}
+
+QStandardItem *TreeView::searchPersonnel(int identifiant)
+{
+    for (unsigned int i = 0; i < personnels.size(); i++) {
+        int id = personnels[i]->text().split(" ")[0].toInt();
+        if (id == identifiant)
+            return personnels[i];
+    }
+    return new QStandardItem("NOT EXISTS");
+}
+
+void TreeView::removePersonnel(QStandardItem * personnel)
+{
+    for (unsigned int i = 0; i < personnels.size(); i++) {
+        if (personnels[i]->text().compare(personnel->text()) == 0) {
+            personnels.erase(personnels.begin() + i);
+            delete personnel;
+            break;
+        }
+    }
 }
 
 vector<QStandardItem *> &TreeView::getPersonnels()

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":hospital.png"));
+    this->setWindowTitle("DoctoPatients");
 
     //Table View
     model = new QSqlTableModel;
@@ -26,7 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Tree View
     controller.loadTreeView(tree);
+    ui->treeView->setHeaderHidden(true);
     ui->treeView->setModel(&tree.getModel());
+    ui->treeView->expandAll();
     ui->dateEdit->setDate(QDate::currentDate());
     ui->dateEditPlanifier->setDate(QDate::currentDate());
 }
@@ -99,13 +102,31 @@ void MainWindow::patientCreated()
 void MainWindow::personnelCreated()
 {
     ui->statusBar->showMessage("Personnel créé", 3000);
-    controller.updateTreeView(tree, controller.getCentre().getPersonnels().back());
+    controller.insertInTreeView(tree, controller.getCentre().getPersonnels().back());
 }
 
 void MainWindow::informaticienCreated()
 {
     ui->statusBar->showMessage("Informaticien créé", 3000);
-    controller.updateTreeView(tree, controller.getCentre().getInformaticiens().back());
+    controller.insertInTreeView(tree, controller.getCentre().getInformaticiens().back());
+}
+
+void MainWindow::personnelUpdated()
+{
+    ui->statusBar->showMessage("Personnel mis à jour", 3000);
+    QVariant item = ui->treeView->currentIndex().data();
+    int idPersonnel = item.toString().split(" ")[0].toInt();
+    Personnel perso = controller.getCentre().getPersonnels()[controller.getCentre().searchPersonnel(idPersonnel)];
+    controller.modifyTreeView(tree, perso);
+}
+
+void MainWindow::informaticienUpdated()
+{
+    ui->statusBar->showMessage("Informaticien mis à jour", 3000);
+    QVariant item = ui->treeView->currentIndex().data();
+    int idPersonnel = item.toString().split(" ")[0].toInt();
+    Informaticien informaticien = controller.getCentre().getInformaticiens()[controller.getCentre().searchInformaticien(idPersonnel)];
+    controller.modifyTreeView(tree, informaticien);
 }
 
 void MainWindow::fileWritten()
@@ -153,6 +174,7 @@ void MainWindow::on_btnRechercher_clicked()
     db.close();
 }
 
+
 void MainWindow::on_BtnSupprimer_clicked()
 {
     int row = ui->tableView->currentIndex().row();
@@ -160,9 +182,9 @@ void MainWindow::on_BtnSupprimer_clicked()
     QString nom = ui->tableView->model()->data(ui->tableView->model()->index(row,1)).toString();
     QString prenom = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
     QMessageBox msgBox;
-    msgBox.setText("Etes-vous sûr de vouloi supprimer "+nom+" "+prenom+" ?");
+    msgBox.setText("Etes-vous sûr de vouloir supprimer "+nom+" "+prenom+" ?");
     QPushButton *deleteButton = msgBox.addButton(tr("Supprimer"), QMessageBox::ActionRole);
-    QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+    QPushButton *cancelButton = msgBox.addButton(tr("Annuler"));
     msgBox.exec();
 
     if (msgBox.clickedButton() == deleteButton) {
@@ -182,4 +204,79 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
     patientWindow.setControler(controller);
     QObject::connect(&patientWindow, SIGNAL(accepted()), this, SLOT(patientUpdated()));
     patientWindow.exec();
+
+}
+
+void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
+{
+    QVariant item = index.data();
+    if (item.toString().compare(tree.getKine().text()) != 0 && item.toString().compare(tree.getPsycho().text()) != 0 &&
+            item.toString().compare(tree.getMedecinA().text()) != 0 && item.toString().compare(tree.getMedecinB().text()) != 0 &&
+            item.toString().compare(tree.getInfirmiere().text()) != 0 && item.toString().compare(tree.getInformaticien().text()) != 0 &&
+            item.toString().compare(tree.getRadiologue().text()) != 0 && item.toString().compare(tree.getTitle().text()) != 0) {
+
+        PersonnelWindow personnel(this);
+        personnel.setControler(controller);
+        personnel.setModifiable(true);
+        int idPersonnel = item.toString().split(" ")[0].toInt();
+
+        if (index.parent().data().toString().compare(tree.getInformaticien().text()) == 0) {
+            personnel.setInformaticien(controller.getCentre().getInformaticiens()[controller.getCentre().searchInformaticien(idPersonnel)]);
+            Informaticien informaticien = personnel.getInformaticien();
+            QObject::connect(&personnel, SIGNAL(informaticienUpdated()), this, SLOT(informaticienUpdated()));
+            personnel.exec();
+
+        }
+        else {
+            personnel.setPersonnel(controller.getCentre().getPersonnels()[controller.getCentre().searchPersonnel(idPersonnel)]);
+            Personnel perso = personnel.getPersonnel();
+            QObject::connect(&personnel, SIGNAL(personnelUpdated()), this, SLOT(personnelUpdated()));
+            personnel.exec();
+
+        }
+    }
+}
+
+void MainWindow::on_btnSupprimerPersonnel_clicked()
+{
+    QModelIndex item = ui->treeView->currentIndex();
+    int id = item.data().toString().split(" ")[0].toInt();
+    if (item.parent().data().toString().compare("Informaticien") == 0) {
+        if (item.parent().model()->rowCount() == 1)
+            QMessageBox::warning(this, "Attention", "Vous ne pouvez pas supprimer le seul informaticien pouvant se connecter à l'application");
+        else {
+            Informaticien informaticien = controller.getCentre().getInformaticiens()[controller.getCentre().searchInformaticien(id)];
+            controller.deleteInformaticien(informaticien);
+
+            QStandardItem * treeItem = tree.searchPersonnel(id);
+            if (treeItem->text().compare("NOT EXISTS") == 0)
+                delete treeItem;
+            QStandardItem * parent = treeItem->parent();
+            int row = treeItem->row();
+            tree.removePersonnel(treeItem);
+            parent->removeRow(row);
+
+            ui->statusBar->showMessage("Informaticien correctement supprimé");
+        }
+    }
+    else {
+        Personnel personnel = controller.getCentre().getPersonnels()[controller.getCentre().searchPersonnel(id)];
+        controller.deletePersonnel(personnel);
+
+        QStandardItem * treeItem = tree.searchPersonnel(id);
+        if (treeItem->text().compare("NOT EXISTS") == 0)
+            delete treeItem;
+        QStandardItem * parent = treeItem->parent();
+        int row = treeItem->row();
+        tree.removePersonnel(treeItem);
+        parent->removeRow(row);
+
+        ui->statusBar->showMessage("Personnel correctement supprimé");
+    }
+}
+
+void MainWindow::on_btnPlanifier_clicked()
+{
+    QDate date = ui->dateEditPlanifier->date();
+    controller.triPrioritaire(date);
 }

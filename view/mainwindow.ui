@@ -174,7 +174,7 @@
         <x>19</x>
         <y>169</y>
         <width>1121</width>
-        <height>371</height>
+        <height>431</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -259,7 +259,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QPushButton" name="BtnSupprimer">
+        <widget class="QPushButton" name="BtnSupprimerPatient">
          <property name="text">
           <string>Supprimer</string>
          </property>
@@ -301,14 +301,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btnModifier">
-           <property name="text">
-            <string>Modifier</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnSupprimer">
+          <widget class="QPushButton" name="btnSupprimerPersonnel">
            <property name="text">
             <string>Supprimer</string>
            </property>

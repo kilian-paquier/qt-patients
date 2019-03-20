@@ -109,92 +109,131 @@ void Controler::updateInformaticien(int &idInformaticien, string &nom, string &p
     Utils::updateInformaticienInBDD(informaticien);
 }
 
+void Controler::deletePersonnel(Personnel &personnel)
+{
+    centre.getPersonnels().erase(centre.getPersonnels().begin() + centre.searchPersonnel(personnel.getIdentifiant()));
+
+    Utils::deletePersonnelFromBDD(personnel);
+}
+
+void Controler::deleteInformaticien(Informaticien &informaticien)
+{
+    centre.getInformaticiens().erase(centre.getInformaticiens().begin() + centre.searchInformaticien(informaticien.getIdentifiant()));
+
+    Utils::deleteInformaticienFromBDD(informaticien);
+}
+
 void Controler::loadTreeView(TreeView & tree)
 {
     for (unsigned int i = 0; i < centre.getPersonnels().size(); i++) {
         Personnel & personnel = centre.getPersonnels()[i];
-        string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+        string personnelString = to_string(personnel.getIdentifiant()) + " " + personnel.getNom() + " " + personnel.getPrenom();
+        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
         if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getMedecinA().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getMedecinB().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getKine().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getPsycho().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getRadiologue().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
         else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0) {
-            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
             tree.getInfirmiere().appendRow(item);
             tree.getPersonnels().push_back(item);
         }
     }
     for (unsigned int i = 0; i < centre.getInformaticiens().size(); i++) {
         Informaticien & personnel = centre.getInformaticiens()[i];
-        string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+        string personnelString = to_string(personnel.getIdentifiant()) + " " + personnel.getNom() + " " + personnel.getPrenom();
         QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
         tree.getInformaticien().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
 }
 
-void Controler::updateTreeView(TreeView &tree, Personnel &personnel)
+void Controler::insertInTreeView(TreeView &tree, Personnel &personnel)
 {
-    string personnelString = personnel.getNom() + " " + personnel.getPrenom();
+    string personnelString = to_string(personnel.getIdentifiant()) + " " + personnel.getNom() + " " + personnel.getPrenom();
+    QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
     if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getMedecinA().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getMedecinB().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getKine().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getPsycho().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getRadiologue().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0) {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getInfirmiere().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
     else {
-        QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
         tree.getInformaticien().appendRow(item);
         tree.getPersonnels().push_back(item);
     }
 }
 
-/*void Controler::triPrioritaire(QDate date)
+void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
+{
+    string personnelString = to_string(personnel.getIdentifiant()) + " " + personnel.getNom() + " " + personnel.getPrenom();
+    QStandardItem * item = tree.searchPersonnel(personnel.getIdentifiant());
+    if (item->text().compare("NOT EXISTS") == 0)
+        delete item;
+    else {
+        item->setText(QString::fromStdString(personnelString));
+        if (item->parent()->text().compare(QString::fromStdString(personnel.getType())) != 0) {
+            QStandardItem * parent = item->parent();
+            int row = item->row();
+            tree.removePersonnel(item);
+            parent->removeRow(row);
+            QStandardItem * item = new QStandardItem(QString::fromStdString(personnelString));
+            tree.getPersonnels().push_back(item);
+            if (personnel.getType().compare(tree.getMedecinA().text().toStdString()) == 0)
+                tree.getMedecinA().appendRow(item);
+            else if (personnel.getType().compare(tree.getMedecinB().text().toStdString()) == 0)
+                tree.getMedecinB().appendRow(item);
+            else if (personnel.getType().compare(tree.getKine().text().toStdString()) == 0)
+                tree.getKine().appendRow(item);
+            else if (personnel.getType().compare(tree.getPsycho().text().toStdString()) == 0)
+                tree.getPsycho().appendRow(item);
+            else if (personnel.getType().compare(tree.getRadiologue().text().toStdString()) == 0)
+                tree.getRadiologue().appendRow(item);
+            else if (personnel.getType().compare(tree.getInfirmiere().text().toStdString()) == 0)
+                tree.getInfirmiere().appendRow(item);
+            else
+                tree.getInformaticien().appendRow(item);
+        }
+    }
+}
+
+void Controler::triPrioritaire(QDate date)
 {
     vector<Patient> patientstries;
     for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
@@ -205,20 +244,40 @@ void Controler::updateTreeView(TreeView &tree, Personnel &personnel)
     }
     sort(centre.getPatients().begin(), centre.getPatients().end());
 
+    QString jour;
+    if (date.day() < 10)
+        jour = "0" + QString::number(date.day());
+    else
+        jour = QString::number(date.day());
+
+    QString mois;
+    if (date.month() < 10)
+        mois = "0" + QString::number(date.month());
+    else
+        mois = QString::number(date.month());
     QFileDialog dialog;
     dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.selectFile("Planification_" + QString::number(date.day()) + QString::number(date.month()) + QString::number(date.year()));
     dialog.setWindowIcon(QIcon(":hospital.png"));
-    dialog.exec();
 
-    string fichier = dialog.getSaveFileName().toStdString();
-    ofstream fileInput(fichier, ios::out | ios::trunc);
-    if (fileInput) {
-        fileInput << "Consultations pour le jour : " << date.toString().toStdString() << endl;
-        for (unsigned int i = 0; i < patientstries.size(); i++)
-            fileInput << patientstries[i].getIdentifiant() << " " << patientstries[i].getNom() << " " << patientstries[i].getPrenom() << " Durée : " << patientstries[i].getDureeConsultation() << " minutes" << endl;
-        fileInput.close();
+    QString fichier = dialog.getSaveFileName(nullptr, "Enregistrer la planification", "Planification_"
+                                             + jour + mois + QString::number(date.year())
+                                             , "Fichier texte (*.txt)");
+    if (!fichier.isNull()) {
+        QFile fileInput(fichier);
+        if (fileInput.open(QFile::WriteOnly | QIODevice::Text)) {
+            QTextStream flux(&fileInput);
+            flux.setCodec("UFT-8");
+            flux << "Planification du : " + jour + "/" + mois + "/" + QString::number(date.year()) << endl;
+            for (unsigned int i = 0; i < patientstries.size(); i++)
+                flux << QString::number(patientstries[i].getIdentifiant()) + " " + QString::fromStdString(patientstries[i].getNom()) + " "
+                     + QString::fromStdString(patientstries[i].getPrenom()) << endl;
+            fileInput.close();
+        }
     }
-}*/
+
+}
+
 void Controler::deletePatient(int &idPatient)
 {
     Patient patient;

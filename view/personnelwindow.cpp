@@ -7,6 +7,8 @@ PersonnelWindow::PersonnelWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setWindowTitle("Ajout de personnels");
+
     ui->comboBoxType->addItem("Médecin A");
     ui->comboBoxType->addItem("Médecin B");
     ui->comboBoxType->addItem("Radiologue");
@@ -26,6 +28,50 @@ void PersonnelWindow::setControler(Controler &c)
     this->c = c;
 }
 
+void PersonnelWindow::setModifiable(bool boolean)
+{
+    this->modifiable = boolean;
+    ui->btnAjouter->setText("Modifier");
+}
+
+void PersonnelWindow::setPersonnel(Personnel &personnel)
+{
+    this->personnel = personnel;
+    ui->lineEditPrenom->setText(QString::fromStdString(personnel.getPrenom()));
+    ui->lineEditNom->setText(QString::fromStdString(personnel.getNom()));
+    ui->comboBoxType->setCurrentIndex(ui->comboBoxType->findText(QString::fromStdString(personnel.getType())));
+    ui->comboBoxType->removeItem(6);
+}
+
+Personnel &PersonnelWindow::getPersonnel()
+{
+    return personnel;
+}
+
+void PersonnelWindow::setInformaticien(Informaticien &informaticien)
+{
+    this->informaticien = informaticien;
+    ui->lineEditPrenom->setText(QString::fromStdString(informaticien.getPrenom()));
+    ui->lineEditNom->setText(QString::fromStdString(informaticien.getNom()));
+    ui->comboBoxType->clear();
+    ui->comboBoxType->addItem("Informaticien");
+    ui->comboBoxType->setCurrentIndex(0);
+    ui->lineEditLogin->setText(QString::fromStdString(informaticien.getLogin()));
+    ui->lineEditMDP->setText(QString::fromStdString(informaticien.getPassword()));
+    this->setWindowTitle("Modification de personnels");
+    ui->label_19->setText("Modifer un Personnel de soins");
+}
+
+Informaticien &PersonnelWindow::getInformaticien()
+{
+    return informaticien;
+}
+
+bool PersonnelWindow::isModifiable()
+{
+    return modifiable;
+}
+
 void PersonnelWindow::on_btnAnnuler_clicked()
 {
     close();
@@ -38,22 +84,36 @@ void PersonnelWindow::on_btnAjouter_clicked()
         std::string nom = ui->lineEditNom->text().toStdString();
         std::string prenom = ui->lineEditPrenom->text().toStdString();
         std::string type = ui->comboBoxType->currentText().toStdString();
+        std::string login = ui->lineEditLogin->text().toStdString();
+        std::string mdp = ui->lineEditMDP->text().toStdString();
 
-        if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
-            c.createPersonnel(nom, prenom, type);
-            personnelAccepted();
+        if (ui->btnAjouter->text().compare("Ajouter") == 0) {
+            if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
+                c.createPersonnel(nom, prenom, type);
+                personnelAccepted();
+            }
+            else {
+                c.createInformaticien(nom, prenom, type, login, mdp);
+                informaticienAccepted();
+            }
         }
         else {
-            std::string login = ui->lineEditLogin->text().toStdString();
-            std::string mdp = ui->lineEditMDP->text().toStdString();
-            c.createInformaticien(nom, prenom, type, login, mdp);
-            informaticienAccepted();
-            ui->lineEditMDP->setText("");
-            ui->lineEditLogin->setText("");
+            if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
+                c.updatePersonnel(personnel.getIdentifiant(), nom, prenom, type);
+                personnelUpdated();
+                this->hide();
+            }
+            else {
+                c.updateInformaticien(informaticien.getIdentifiant(), nom, prenom, type, login, mdp);
+                informaticienUpdated();
+                this->hide();
+            }
         }
 
         ui->lineEditNom->setText("");
         ui->lineEditPrenom->setText("");
+        ui->lineEditMDP->setText("");
+        ui->lineEditLogin->setText("");
     }
 }
 

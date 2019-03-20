@@ -164,12 +164,12 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         id += 1;
         informaticien.setIdInformaticien(id);
 
-        QString queryString("INSERT INTO TCompte (Id, IdRessource, Login, MdP) values(?,?,?)");
+        QString queryString("INSERT INTO TCompte (Id, IdRessource, Login, MdP) values(?,?,?,?)");
         query.prepare(queryString);
         query.bindValue(0, informaticien.getIdInformaticien());
-        query.bindValue(0, informaticien.getIdentifiant());
-        query.bindValue(1, QVariant(QString::fromStdString(informaticien.getLogin())));
-        query.bindValue(2, QVariant(QString::fromStdString(informaticien.getPassword())));
+        query.bindValue(1, informaticien.getIdentifiant());
+        query.bindValue(2, QVariant(QString::fromStdString(informaticien.getLogin())));
+        query.bindValue(3, QVariant(QString::fromStdString(informaticien.getPassword())));
         bool success = query.exec();
         if (!success) {
             qDebug() << query.lastError().text();
@@ -219,9 +219,6 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(0, patient.getIdentifiant());
     success = query.exec();
 
-        /*query.prepare("DELETE FROM TConsult where IdPatient = ?");
-        query.bindValue(0, patient.getIdentifiant());
-        success = query.exec();*/
     if (success) {
         for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
             query.prepare("INSERT INTO TConsult (IdPatient, IdRessource) values(?,?)");
@@ -560,8 +557,8 @@ vector<Informaticien> & Utils::loadInformaticien()
             string prenom = query.value(2).toString().toStdString();
             string type = "Informaticien";
             int idInfo = query.value(4).toInt();
-            string login = query.value(5).toString().toStdString();
-            string password = query.value(6).toString().toStdString();
+            string login = query.value(6).toString().toStdString();
+            string password = query.value(7).toString().toStdString();
             personnel.setNom(nom);
             personnel.setIdentifiant(id);
             personnel.setPrenom(prenom);

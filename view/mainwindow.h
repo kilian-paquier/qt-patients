@@ -48,6 +48,12 @@ private slots:
 
     void on_tableView_doubleClicked(const QModelIndex &index);
 
+    void on_treeView_doubleClicked(const QModelIndex &index);
+
+    void on_btnSupprimerPersonnel_clicked();
+
+    void on_btnPlanifier_clicked();
+
 public slots:
     void connectionSucceeded();
 
@@ -56,6 +62,10 @@ public slots:
     void personnelCreated();
 
     void informaticienCreated();
+
+    void personnelUpdated();
+
+    void informaticienUpdated();
 
     void fileWritten();
 

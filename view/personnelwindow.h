@@ -15,14 +15,25 @@ class PersonnelWindow : public QDialog
 
 private:
     Controler c;
+    bool modifiable;
+    Personnel personnel;
+    Informaticien informaticien;
 public:
     explicit PersonnelWindow(QWidget *parent = nullptr);
     ~PersonnelWindow();
     void setControler(Controler &c);
+    void setModifiable(bool boolean);
+    void setPersonnel(Personnel & personnel);
+    Personnel & getPersonnel();
+    void setInformaticien(Informaticien & informaticien);
+    Informaticien & getInformaticien();
+    bool isModifiable();
 
 signals:
     void personnelAccepted();
     void informaticienAccepted();
+    void personnelUpdated();
+    void informaticienUpdated();
 
 private slots:
 

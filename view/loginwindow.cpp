@@ -8,6 +8,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Connexion à DoctoPatients");
 }
 
 LoginWindow::~LoginWindow()

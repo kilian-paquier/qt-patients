@@ -31,6 +31,9 @@ public:
     QStandardItem & getInfirmiere();
     QStandardItem & getInformaticien();
     QStandardItem & getRadiologue();
+    QStandardItem & getTitle();
+    QStandardItem * searchPersonnel(int identifiant);
+    void removePersonnel(QStandardItem * personnel);
 
     vector<QStandardItem *> & getPersonnels();
 };
