@@ -106,7 +106,7 @@ void TreeView::removePersonnel(QStandardItem * personnel)
 {
     for (unsigned int i = 0; i < personnels.size(); i++) {
         if (personnels[i]->text().compare(personnel->text()) == 0) {
-            personnels.erase(personnels.begin() + i);
+            personnels.erase(personnels.begin() + static_cast<int>(i));
             delete personnel;
             break;
         }

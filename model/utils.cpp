@@ -84,6 +84,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     return true;
 }
 
+
 bool Utils::writePersonnelInBDD(Personnel &personnel)
 {
     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
@@ -632,6 +633,7 @@ Patient Utils::getPatient(int &id)
     queryRessource.prepare(QString("SELECT IdRessource FROM TConsult WHERE IdPatient = :id"));
     queryRessource.bindValue(":id",id);
     queryRessource.exec();
+
     while (queryRessource.next()) {
         int idRessource = queryRessource.value(0).toInt();
         patient.getIdentifiantsRessources().push_back(idRessource);

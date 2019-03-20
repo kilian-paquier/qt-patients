@@ -1,10 +1,4 @@
 #include "c_init_bd.h"
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QDebug>
-#include <QFile>
-
 
 C_INIT_BD::C_INIT_BD()
 {

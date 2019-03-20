@@ -2,7 +2,6 @@
 #define LOGINWINDOW_H
 
 #include <QDialog>
-#include <string>
 #include <QMessageBox>
 #include "model/utils.h"
 

@@ -48,7 +48,7 @@
         <x>20</x>
         <y>90</y>
         <width>1121</width>
-        <height>91</height>
+        <height>118</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -174,7 +174,7 @@
         <x>19</x>
         <y>169</y>
         <width>1121</width>
-        <height>371</height>
+        <height>391</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -194,9 +194,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
-        <width>1361</width>
-        <height>60</height>
+        <y>20</y>
+        <width>1071</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
@@ -252,9 +252,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>550</y>
+        <y>560</y>
         <width>1121</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -280,6 +280,23 @@
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="questionButton">
+      <property name="geometry">
+       <rect>
+        <x>1100</x>
+        <y>20</y>
+        <width>33</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../icon_question.qrc">
+        <normaloff>:/question-mark.png</normaloff>:/question-mark.png</iconset>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -289,9 +306,9 @@
       <property name="geometry">
        <rect>
         <x>19</x>
-        <y>9</y>
+        <y>49</y>
         <width>1121</width>
-        <height>591</height>
+        <height>551</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -323,6 +340,23 @@
         </layout>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="questionButton_2">
+      <property name="geometry">
+       <rect>
+        <x>1100</x>
+        <y>10</y>
+        <width>33</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../icon_question.qrc">
+        <normaloff>:/question-mark.png</normaloff>:/question-mark.png</iconset>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -405,6 +439,7 @@
  <resources>
   <include location="../icon_nurse.qrc"/>
   <include location="../icon_patient.qrc"/>
+  <include location="../icon_question.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -9,6 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(":hospital.png"));
     this->setWindowTitle("DoctoPatients");
 
+    //Bulle d'information
+    ui->questionButton->setToolTip("Pour MODIFIER, double clic sur un Patient. "
+                                   "Pour Supprimer, selectionez un Patient et cliquez sur Supprimer");
+    ui->questionButton_2->setToolTip("Pour MODIFIER, double clic sur un Personnel. "
+                                   "Pour Supprimer, selectionez un Personnel et cliquez sur Supprimer");
     //Table View
     model = new QSqlTableModel;
     model->setTable("TPatient");
@@ -63,6 +68,7 @@ void MainWindow::on_actionPatient_triggered()
     PatientWindow patient(this);
     patient.setControler(controller);
 
+    //Attend le signal pour mettre à jour la tableView
     QObject::connect(&patient, SIGNAL(accepted()), this, SLOT(patientCreated()));
     patient.exec();
 }
@@ -72,6 +78,7 @@ void MainWindow::on_actionPersonnel_de_soins_triggered()
     PersonnelWindow personnel(this);
     personnel.setControler(controller);
 
+    //Attend le signal pour mettre à jour la treeView
     QObject::connect(&personnel, SIGNAL(personnelAccepted()), this, SLOT(personnelCreated()));
     QObject::connect(&personnel, SIGNAL(informaticienAccepted()), this, SLOT(informaticienCreated()));
     personnel.exec();
@@ -94,9 +101,6 @@ void MainWindow::patientCreated()
     model->setTable("TPatient");
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
     model->select();
-    model->setHeaderData(0,Qt::Horizontal,"ID");
-    model->setHeaderData(1,Qt::Horizontal,"Nom");
-    model->setHeaderData(2,Qt::Horizontal,"Prénom");
 }
 
 void MainWindow::personnelCreated()
@@ -105,11 +109,13 @@ void MainWindow::personnelCreated()
     controller.insertInTreeView(tree, controller.getCentre().getPersonnels().back());
 }
 
+
 void MainWindow::informaticienCreated()
 {
     ui->statusBar->showMessage("Informaticien créé", 3000);
     controller.insertInTreeView(tree, controller.getCentre().getInformaticiens().back());
 }
+
 
 void MainWindow::personnelUpdated()
 {
@@ -120,6 +126,7 @@ void MainWindow::personnelUpdated()
     controller.modifyTreeView(tree, perso);
 }
 
+
 void MainWindow::informaticienUpdated()
 {
     ui->statusBar->showMessage("Informaticien mis à jour", 3000);
@@ -129,10 +136,12 @@ void MainWindow::informaticienUpdated()
     controller.modifyTreeView(tree, informaticien);
 }
 
+
 void MainWindow::fileWritten()
 {
      ui->statusBar->showMessage("Ecriture dans le fichier réalisée", 3000);
 }
+
 
 void MainWindow::patientUpdated()
 {
@@ -142,6 +151,7 @@ void MainWindow::patientUpdated()
     model->select();
 }
 
+
 void MainWindow::patientDeleted()
 {
     ui->statusBar->showMessage("Patient supprimé", 3000);
@@ -149,6 +159,7 @@ void MainWindow::patientDeleted()
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
     model->select();
 }
+
 
 void MainWindow::on_btnRechercher_clicked()
 {
@@ -163,13 +174,19 @@ void MainWindow::on_btnRechercher_clicked()
     QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     db.open();
 
-    model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%'").arg(id).arg(nom).arg(prenom));
-
+    //filtre selon si le bouton radio est actif
     if(activer == true)
     {
         model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' AND DateConsultation like '%4%' ").arg(id).arg(nom).arg(prenom).arg(date.toString("yyyy-MM-dd")));
     }
+    else {
+        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%'").arg(id).arg(nom).arg(prenom));
+    }
+
+    //Compte le nombre de ligne trouvée par la recherche
     int row = model->rowCount();
+
+    //Affiche un message s'il y a aucun résultat
     if (row == 0)
     {
         QMessageBox::warning(this, "Attention", "Aucun résultat pour cette recherche");
@@ -188,6 +205,7 @@ void MainWindow::on_btnRechercher_clicked()
 
 void MainWindow::on_BtnSupprimerPatient_clicked()
 {
+    //Vérification si une ligne est sélectionnée dans la tableView
     bool selected = ui->tableView->selectionModel()->isSelected(ui->tableView->currentIndex());
     if (!selected)
     {
@@ -199,6 +217,8 @@ void MainWindow::on_BtnSupprimerPatient_clicked()
         int id = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
         QString nom = ui->tableView->model()->data(ui->tableView->model()->index(row,1)).toString();
         QString prenom = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
+
+        //Message d'information sur le patient qui va être supprimé
         QMessageBox msgBox;
         msgBox.setWindowTitle("Supprimer Patient");
         msgBox.setText("Etes-vous sûr de vouloir supprimer "+nom+" "+prenom+" ?");
@@ -212,27 +232,32 @@ void MainWindow::on_BtnSupprimerPatient_clicked()
         } else if (msgBox.clickedButton() == cancelButton) {
             msgBox.close();
         }
+
         delete deleteButton;
         delete cancelButton;
     }
 
 }
 
+
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
-
+    //Récupération de l'id sélectionné
     int row = index.row();
     int information = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString().toInt();
 
     PatientWindow patientWindow(this,information);
     patientWindow.setControler(controller);
+
     QObject::connect(&patientWindow, SIGNAL(accepted()), this, SLOT(patientUpdated()));
     patientWindow.exec();
 
 }
 
+
 void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
 {
+    //Récupération des données sélectionnées
     QVariant item = index.data();
     if (item.toString().compare(tree.getKine().text()) != 0 && item.toString().compare(tree.getPsycho().text()) != 0 &&
             item.toString().compare(tree.getMedecinA().text()) != 0 && item.toString().compare(tree.getMedecinB().text()) != 0 &&
@@ -260,6 +285,7 @@ void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
         }
     }
 }
+
 
 void MainWindow::on_btnSupprimerPersonnel_clicked()
 {
@@ -298,6 +324,7 @@ void MainWindow::on_btnSupprimerPersonnel_clicked()
         ui->statusBar->showMessage("Personnel correctement supprimé");
     }
 }
+
 
 void MainWindow::on_btnPlanifier_clicked()
 {

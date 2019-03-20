@@ -77,5 +77,6 @@ RESOURCES += \
     icon_patient.qrc \
     icon_nurse.qrc \
     app_icon.qrc \
-    polytech.qrc
+    polytech.qrc \
+    icon_question.qrc
 
