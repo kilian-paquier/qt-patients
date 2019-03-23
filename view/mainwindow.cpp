@@ -329,5 +329,5 @@ void MainWindow::on_btnSupprimerPersonnel_clicked()
 void MainWindow::on_btnPlanifier_clicked()
 {
     QDate date = ui->dateEditPlanifier->date();
-    //controller.triPrioritaire(date);
+    controller.triPrioritaire(date);
 }

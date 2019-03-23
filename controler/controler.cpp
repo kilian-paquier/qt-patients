@@ -233,7 +233,7 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
     }
 }
 
-/*void Controler::triPrioritaire(QDate date)
+void Controler::triPrioritaire(QDate date)
 {
     vector<Patient> patientstries;
     for (unsigned int i = 0; i < centre.getPatients().size(); i++) {
@@ -242,7 +242,7 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
             centre.getPatients()[i].transform();
         }
     }
-    sort(centre.getPatients().begin(), centre.getPatients().end());
+    sort(patientstries.begin(), patientstries.end());
 
     QString jour;
     if (date.day() < 10)
@@ -276,7 +276,7 @@ void Controler::modifyTreeView(TreeView &tree, Personnel &personnel)
         }
     }
 
-}*/
+}
 
 void Controler::deletePatient(int &idPatient)
 {

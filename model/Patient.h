@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <string>
+#include <algorithm>
 using namespace std;
 #include <QDate>
 
@@ -38,10 +38,10 @@ public:
 	
     unsigned int & getCodePostal();
     string & getNumeroTelephone();
-	int & getDureeConsultation();
-	int & getPriorite();
+    int & getDureeConsultation();
+    int & getPriorite();
 
-	vector<int> & getIdentifiantsRessources();
+    vector<int> & getIdentifiantsRessources();
     void setIdentifiantsRessources(vector<int> &identifiants);
     void addIdentifiantRessources(int &identifiant);
 
@@ -58,7 +58,7 @@ public:
     void setDureeConsultation(int & dureeConsultation);
     void setPriorite(int & priorite);
 
-	bool operator<(Patient & patient);
+    bool operator<(const Patient & patient2) const;
 	void transform();
 	string toString();
 };

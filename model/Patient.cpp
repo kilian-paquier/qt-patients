@@ -114,11 +114,14 @@ void Patient::setPriorite(int &priorite)
 	(*this).priorite = priorite;
 }
 
-bool Patient::operator<(Patient & patient)
+bool Patient::operator<(const Patient & patient2) const
 {
-    int contraignanceThis = priorite * 100 + static_cast<int>(identifiantsRessources.size()) * 10 + dureeConsultation;
-    int contraignancePatient = patient.getPriorite() * 100 + static_cast<int>(patient.getIdentifiantsRessources().size()) * 10 + patient.getDureeConsultation();
-	return contraignanceThis < contraignancePatient;
+    int contraignancePatient = this->priorite * 100 + static_cast<int>(this->identifiantsRessources.size()) * 10 + this->dureeConsultation;
+    int contraignancePatient2 = patient2.priorite * 100 + static_cast<int>(patient2.identifiantsRessources.size()) * 10 + patient2.dureeConsultation;
+    if (contraignancePatient < contraignancePatient2)
+        return true;
+    else
+        return false;
 }
 
 void Patient::transform()
