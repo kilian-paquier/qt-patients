@@ -46,6 +46,7 @@ MainWindow::~MainWindow()
     delete &controller.getCentre().getPatients();
     delete &controller.getCentre().getPersonnels();
     delete &controller.getCentre().getInformaticiens();
+    cout << "Il y a eu " << count << " requetes !" << endl;
 }
 
 Controler &MainWindow::getController()
@@ -101,12 +102,14 @@ void MainWindow::patientCreated()
     model->setTable("TPatient");
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
     model->select();
+    count++;
 }
 
 void MainWindow::personnelCreated()
 {
     ui->statusBar->showMessage("Personnel créé", 3000);
     controller.insertInTreeView(tree, controller.getCentre().getPersonnels().back());
+    count++;
 }
 
 
@@ -114,6 +117,7 @@ void MainWindow::informaticienCreated()
 {
     ui->statusBar->showMessage("Informaticien créé", 3000);
     controller.insertInTreeView(tree, controller.getCentre().getInformaticiens().back());
+    count++;
 }
 
 
@@ -175,12 +179,13 @@ void MainWindow::on_btnRechercher_clicked()
     db.open();
 
     //filtre selon si le bouton radio est actif
+    // Modification 3 - CC
     if(activer == true)
     {
-        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' AND DateConsultation like '%4%' ").arg(id).arg(nom).arg(prenom).arg(date.toString("yyyy-MM-dd")));
+        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' AND DateConsultation like '%4%' ORDER BY PRENOM").arg(id).arg(nom).arg(prenom).arg(date.toString("yyyy-MM-dd")));
     }
     else {
-        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%'").arg(id).arg(nom).arg(prenom));
+        model->setFilter(QString("ID like '%1%%' AND NOM like '%2%%' AND PRENOM like '%3%%' ORDER BY PRENOM").arg(id).arg(nom).arg(prenom));
     }
 
     //Compte le nombre de ligne trouvée par la recherche
@@ -330,4 +335,21 @@ void MainWindow::on_btnPlanifier_clicked()
 {
     QDate date = ui->dateEditPlanifier->date();
     controller.triPrioritaire(date);
+}
+
+void MainWindow::windowClosed()
+{
+    cout << "Il y a eu " << count << "requetes" << endl;
+}
+
+void MainWindow::on_actionAjouter_m_decin_A_triggered()
+{
+    PersonnelWindow personnel(this);
+    personnel.setControler(controller);
+    personnel.setMedecinA();
+
+    //Attend le signal pour mettre à jour la treeView
+    QObject::connect(&personnel, SIGNAL(personnelAccepted()), this, SLOT(personnelCreated()));
+    QObject::connect(&personnel, SIGNAL(informaticienAccepted()), this, SLOT(informaticienCreated()));
+    personnel.exec();
 }

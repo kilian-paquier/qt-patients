@@ -72,6 +72,12 @@ bool PersonnelWindow::isModifiable()
     return modifiable;
 }
 
+void PersonnelWindow::setMedecinA()
+{
+    ui->comboBoxType->clear();
+    ui->comboBoxType->addItem("Médecin A");
+}
+
 void PersonnelWindow::on_btnAnnuler_clicked()
 {
     close();
@@ -83,28 +89,31 @@ void PersonnelWindow::on_btnAjouter_clicked()
     if (success) {
         std::string nom = ui->lineEditNom->text().toStdString();
         std::string prenom = ui->lineEditPrenom->text().toStdString();
+        std::string surnom = ui->lineEditSurnom->text().toStdString();
         std::string type = ui->comboBoxType->currentText().toStdString();
         std::string login = ui->lineEditLogin->text().toStdString();
         std::string mdp = ui->lineEditMDP->text().toStdString();
 
+        std::string prenomBD = prenom+";"+surnom;
+
         if (ui->btnAjouter->text().compare("Ajouter") == 0) {
             if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
-                c.createPersonnel(nom, prenom, type);
+                c.createPersonnel(nom, prenomBD, type);
                 personnelAccepted();
             }
             else {
-                c.createInformaticien(nom, prenom, type, login, mdp);
+                c.createInformaticien(nom, prenomBD, type, login, mdp);
                 informaticienAccepted();
             }
         }
         else {
             if (ui->comboBoxType->currentText().toStdString().compare("Informaticien") != 0) {
-                c.updatePersonnel(personnel.getIdentifiant(), nom, prenom, type);
+                c.updatePersonnel(personnel.getIdentifiant(), nom, prenomBD, type);
                 personnelUpdated();
                 this->hide();
             }
             else {
-                c.updateInformaticien(informaticien.getIdentifiant(), nom, prenom, type, login, mdp);
+                c.updateInformaticien(informaticien.getIdentifiant(), nom, prenomBD, type, login, mdp);
                 informaticienUpdated();
                 this->hide();
             }
@@ -114,6 +123,7 @@ void PersonnelWindow::on_btnAjouter_clicked()
         ui->lineEditPrenom->setText("");
         ui->lineEditMDP->setText("");
         ui->lineEditLogin->setText("");
+        ui->lineEditSurnom->setText("");
     }
 }
 

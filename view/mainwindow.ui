@@ -367,7 +367,7 @@
      <x>0</x>
      <y>0</y>
      <width>1187</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -380,6 +380,7 @@
      </property>
      <addaction name="actionPatient"/>
      <addaction name="actionPersonnel_de_soins"/>
+     <addaction name="actionAjouter_m_decin_A"/>
     </widget>
     <addaction name="menuAjouter"/>
     <addaction name="separator"/>
@@ -403,7 +404,11 @@
    </attribute>
    <addaction name="actionPatient"/>
    <addaction name="separator"/>
+   <addaction name="separator"/>
    <addaction name="actionPersonnel_de_soins"/>
+   <addaction name="separator"/>
+   <addaction name="actionAjouter_m_decin_A"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuitter">
@@ -432,6 +437,11 @@
   <action name="actionA_propos">
    <property name="text">
     <string>à propos</string>
+   </property>
+  </action>
+  <action name="actionAjouter_m_decin_A">
+   <property name="text">
+    <string>Ajouter médecin A</string>
    </property>
   </action>
  </widget>

@@ -6,7 +6,7 @@ PatientWindow::PatientWindow(QWidget *parent) :
     ui(new Ui::PatientWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Ajout de patients");
+    this->setWindowTitle("Données de la personne"); // Modification point 1 CC
     ui->dateConsultation->setDate(QDate::currentDate());
 }
 
@@ -66,10 +66,14 @@ bool PatientWindow::verification()
     std::string commentaire = ui->textEditCommentaire->toPlainText().toStdString();
     int id = getId();
 
+    // Modification 2 - CC
+    QDate todayPlusThree = QDate::currentDate();
+    todayPlusThree = todayPlusThree.addDays(3);
+
     if(nom.compare("") != 0 && prenom.compare("") != 0 && adresse.compare("") != 0 && ville.compare("") != 0)
     {
-        if (QDate::currentDate() > date && id == 0)
-            QMessageBox::warning(this,"Attention","La date saisie est avant la date d'aujourd'hui");
+        if (todayPlusThree > date && id == 0)
+            QMessageBox::warning(this,"Attention","La date saisie est avant la date d'aujourd'hui (moins trois jours)");
         else if (dureeConsult <= 0)
             QMessageBox::warning(this,"Attention","Le patient possède une durée de consultation de 0 minutes");
         else if (priorite <= 0)

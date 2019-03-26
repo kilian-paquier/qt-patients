@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow
 private:
     Controler controller;
     TreeView tree;
+    int count = 0;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -52,6 +53,10 @@ private slots:
     void on_btnSupprimerPersonnel_clicked();
 
     void on_btnPlanifier_clicked();
+
+    void windowClosed();
+
+    void on_actionAjouter_m_decin_A_triggered();
 
 public slots:
     void connectionSucceeded();

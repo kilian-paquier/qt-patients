@@ -28,6 +28,7 @@ public:
     void setInformaticien(Informaticien & informaticien);
     Informaticien & getInformaticien();
     bool isModifiable();
+    void setMedecinA();
 
 signals:
     void personnelAccepted();

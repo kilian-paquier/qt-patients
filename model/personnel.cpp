@@ -51,3 +51,12 @@ void Personnel::setType(string & type)
     this->type = type;
 }
 
+string &Personnel::getSurnom()
+{
+    return surnom;
+}
+
+void Personnel::setSurnom(string & surnom)
+{
+    this->surnom = surnom;
+}

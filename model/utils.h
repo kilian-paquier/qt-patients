@@ -40,4 +40,5 @@ public:
     static Patient getPatient(int &id);
 };
 
+
 #endif // UTILS_H

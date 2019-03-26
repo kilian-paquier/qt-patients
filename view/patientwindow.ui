@@ -71,7 +71,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEditNom"/>
+       <widget class="QLineEdit" name="lineEditNom">
+        <property name="text">
+         <string>Son nom</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_3">

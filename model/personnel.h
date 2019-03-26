@@ -11,6 +11,7 @@ private:
     string nom;
     string prenom;
     string type;
+    string surnom;
 
 public:
     Personnel();
@@ -24,6 +25,9 @@ public:
     void setIdentifiant(int & identifiant);
     void setPrenom(string & prenom);
     void setType(string & type);
+
+    string & getSurnom();
+    void setSurnom(string & surnom);
 };
 
 #endif // PERSONNEL_H

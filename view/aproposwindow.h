@@ -20,6 +20,8 @@ private slots:
 
     void on_btnRetour_clicked();
 
+    void on_btnExporter_clicked();
+
 private:
     Ui::AProposWindow *ui;
 };

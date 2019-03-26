@@ -19,6 +19,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     QSqlQuery query(db);
 
     bool success = query.exec("SELECT MAX(Id) FROM TPatient");
+
     int id = 0;
     if (success) {
         while (query.next()) {
@@ -48,6 +49,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     query.bindValue(10, patient.getPriorite());
 
     success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TPatient impossible !\n";
@@ -55,6 +57,7 @@ bool Utils::writePatientInBDD(Patient &patient)
     }
 
     success = query.exec("SELECT MAX(Id) FROM Tconsult");
+
     if (success) {
         while (query.next()) {
             id = query.value(0).toInt();
@@ -73,6 +76,7 @@ bool Utils::writePatientInBDD(Patient &patient)
         query.bindValue(1, patient.getIdentifiant());
         query.bindValue(2, patient.getIdentifiantsRessources()[i]);
         success = query.exec();
+
         if (!success) {
             qDebug() << query.lastError().text();
             qDebug() << "Insertion de données dans TConsult impossible !\n";
@@ -95,6 +99,7 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     typeQuery.prepare("SELECT Id FROM TType WHERE Label = ?");
     typeQuery.bindValue(0, QVariant(QString::fromStdString(personnel.getType())));
     bool success = typeQuery.exec();
+
     if (!success) {
         qDebug() << typeQuery.lastError().text();
         qDebug() << "Select dans TType impossible !\n";
@@ -108,6 +113,7 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     QSqlQuery query(db);
 
     success = query.exec("SELECT MAX(Id) FROM TRessource");
+
     int id = 0;
     if (success) {
         while (query.next())
@@ -130,6 +136,7 @@ bool Utils::writePersonnelInBDD(Personnel &personnel)
     query.bindValue(3, idType);
 
     success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TRessource impossible !\n";
@@ -152,6 +159,7 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         QSqlQuery query(db);
 
         success = query.exec("SELECT MAX(Id) FROM TCompte");
+
         int id = 0;
         if (success) {
             while (query.next())
@@ -172,6 +180,7 @@ bool Utils::writeInformaticienInBDD(Informaticien &informaticien)
         query.bindValue(2, QVariant(QString::fromStdString(informaticien.getLogin())));
         query.bindValue(3, QVariant(QString::fromStdString(informaticien.getPassword())));
         bool success = query.exec();
+
         if (!success) {
             qDebug() << query.lastError().text();
             qDebug() << "Insertion de données dans TCompte impossible !\n";
@@ -210,6 +219,7 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(10, patient.getIdentifiant());
 
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TPatient impossible !\n";
@@ -220,12 +230,14 @@ bool Utils::updatePatientInBDD(Patient &patient)
     query.bindValue(0, patient.getIdentifiant());
     success = query.exec();
 
+
     if (success) {
         for (unsigned int i = 0; i < patient.getIdentifiantsRessources().size(); i++) {
             query.prepare("INSERT INTO TConsult (IdPatient, IdRessource) values(?,?)");
             query.bindValue(0, patient.getIdentifiant());
             query.bindValue(1, patient.getIdentifiantsRessources()[i]);
             success = query.exec();
+
             if (!success) {
                 qDebug() << query.lastError().text();
                 qDebug() << "Insertion de données dans TConsult impossible !\n";
@@ -254,6 +266,7 @@ bool Utils::updatePersonnelInBDD(Personnel &personnel)
     typeQuery.prepare("SELECT Id FROM TType WHERE Label = ?");
     typeQuery.bindValue(0, QVariant(QString::fromStdString(personnel.getType())));
     bool success = typeQuery.exec();
+
     if (!success) {
         qDebug() << typeQuery.lastError().text();
         qDebug() << "Select dans TType impossible !\n";
@@ -272,6 +285,7 @@ bool Utils::updatePersonnelInBDD(Personnel &personnel)
     query.bindValue(2, idType);
     query.bindValue(3, personnel.getIdentifiant());
     success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Insertion de données dans TRessource impossible !\n";
@@ -298,6 +312,7 @@ bool Utils::updateInformaticienInBDD(Informaticien &informaticien)
         query.bindValue(1, QVariant(QString::fromStdString(informaticien.getPassword())));
         query.bindValue(2, informaticien.getIdInformaticien());
         bool success = query.exec();
+
         if (!success) {
             qDebug() << query.lastError().text();
             qDebug() << "Insertion de données dans TCompte impossible !\n";
@@ -325,6 +340,7 @@ bool Utils::deletePatientFromBDD(Patient &patient)
     query.bindValue(0, patient.getIdentifiant());
 
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Suppression de données dans TConsult impossible !\n";
@@ -335,6 +351,7 @@ bool Utils::deletePatientFromBDD(Patient &patient)
     query.bindValue(0, patient.getIdentifiant());
 
     success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Suppression de données dans TPatient impossible !\n";
@@ -356,6 +373,7 @@ bool Utils::deletePersonnelFromBDD(Personnel &personnel)
     query.prepare(queryString);
     query.bindValue(0, personnel.getIdentifiant());
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Suppression de données dans TConsult impossible !\n";
@@ -365,6 +383,7 @@ bool Utils::deletePersonnelFromBDD(Personnel &personnel)
     query.prepare("DELETE FROM TRessource where Id = ?");
     query.bindValue(0, personnel.getIdentifiant());
     success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Suppression de données dans TRessource impossible !\n";
@@ -388,6 +407,7 @@ bool Utils::deleteInformaticienFromBDD(Informaticien &informaticien)
         query.prepare(queryString);
         query.bindValue(0, informaticien.getIdInformaticien());
         bool success = query.exec();
+
         if (!success) {
             qDebug() << query.lastError().text();
             qDebug() << "Suppression de données dans TCompte impossible !\n";
@@ -414,6 +434,7 @@ bool Utils::connectInformaticien(string &login, string &password)
     query.bindValue(0, QVariant(QString::fromStdString(login)));
     query.bindValue(1, QVariant(QString::fromStdString(password)));
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Select dans TCompte impossible !\n";
@@ -442,6 +463,7 @@ vector<Personnel> & Utils::loadPersonnels()
     QString queryString("SELECT * FROM TRessource where IdType != (SELECT Id FROM TType where Label = 'Informaticien')");
     query.prepare(queryString);
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Select dans TRessource impossible !\n";
@@ -458,6 +480,7 @@ vector<Personnel> & Utils::loadPersonnels()
             queryType.prepare("SELECT Label FROM TType where Id = ?");
             queryType.bindValue(0, idType);
             queryType.exec();
+
             string type;
             while (queryType.next()) {
                 type = queryType.value(0).toString().toStdString();
@@ -486,6 +509,7 @@ vector<Patient> & Utils::loadPatients()
     QString queryString("SELECT * FROM TPatient");
     query.prepare(queryString);
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Select dans TPatient impossible !\n";
@@ -499,6 +523,7 @@ vector<Patient> & Utils::loadPatients()
             consultations.prepare("SELECT IdRessource FROM TConsult where IdPatient = ?");
             consultations.bindValue(0, id);
             consultations.exec();
+
             vector<int> ressources;
             while (consultations.next()) {
                 ressources.push_back(consultations.value(0).toInt());
@@ -545,6 +570,7 @@ vector<Informaticien> & Utils::loadInformaticien()
     QString queryString("SELECT * FROM TRessource INNER JOIN TCompte ON TRessource.Id = TCompte.IdRessource where IdType = (SELECT Id FROM TType where Label = 'Informaticien')");
     query.prepare(queryString);
     bool success = query.exec();
+
     if (!success) {
         qDebug() << query.lastError().text();
         qDebug() << "Select dans TRessource - TCompte impossible !\n";
@@ -607,6 +633,7 @@ Patient Utils::getPatient(int &id)
     query.prepare(QString("SELECT Nom, Prenom, Adresse, Ville, CP, Commentaire, Tel, DateConsultation, DureeConsultation, Priorite FROM TPatient WHERE Id = :id"));
     query.bindValue(":id",id);
     query.exec();
+
     query.next();
     string nom = query.value(0).toString().toStdString();
     string prenom = query.value(1).toString().toStdString();
@@ -634,6 +661,7 @@ Patient Utils::getPatient(int &id)
     queryRessource.bindValue(":id",id);
     queryRessource.exec();
 
+
     while (queryRessource.next()) {
         int idRessource = queryRessource.value(0).toInt();
         patient.getIdentifiantsRessources().push_back(idRessource);
@@ -644,3 +672,5 @@ Patient Utils::getPatient(int &id)
     return patient;
 
 }
+
+

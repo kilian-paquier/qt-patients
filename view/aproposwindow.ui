@@ -37,8 +37,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>221</width>
-     <height>91</height>
+     <width>229</width>
+     <height>81</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -89,6 +89,25 @@
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>Vincent Pozzi</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>130</y>
+     <width>160</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QPushButton" name="btnExporter">
+      <property name="text">
+       <string>Exporter</string>
       </property>
      </widget>
     </item>
